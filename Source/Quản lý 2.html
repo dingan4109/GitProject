@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>QL2</title>
+ </head>
+<body>
+<p>Student Management Program</p>
+<div id="show"></div>
+</table>
+</body>
+</html>
+<script>
+    class Student {
+        constructor(name,dob,aScore,ability) {
+            this.name = name;
+            this.dob = dob;
+            this.aScore = aScore;
+            this.ability = ability;
+        }
+        academicEvalute() {
+            switch (this.aScore) {
+                case 1:
+                case 2:
+                case 3:
+                case 4: this.ability =  "Ok"; break;
+                default: this.ability = "Excellent"
+
+            }
+        }
+        display(idShow) {
+            let table = "<table border='1' style='border-collapse: collapse'>\n" +
+                "    <tr>\n" +
+                "        <th colspan='7'>Student Management</th>\n" +
+                "    </tr>\n" +
+                "    <tr>\n" +
+                "        <td>Fullname</td>\n" +
+                "        <td>Date of Birth</td>\n" +
+                "        <td>Average Score</td>\n" +
+                "        <td>Academic Ability</td>\n" +
+                "    </tr>"+
+                " <tr>\n" +
+                    "        <td>"+this.name+"</td>\n" +
+                    "        <td>"+this.dob+"</td>\n" +
+                    "        <td>"+this.aScore+"</td>\n" +
+                    "        <td>"+this.ability+"</td>\n" +
+                    "    </tr>" + "</table>";
+            idShow.innerHTML = table;
+        }
+
+    }
+
+
+    let studentArr = [];
+    let s1 = new Student('A','12/3/1999',5);
+    s1.academicEvalute();
+    s1.display(show);
+
+
+
+</script>

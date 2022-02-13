@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Bài tập - Quản lý sản phẩm bằng javascript </title>
+    <style>
+        fieldset {
+            width: 30%;
+            }
+    </style>
+</head>
+<form action="#" method="post">
+    <fieldset>
+        <lable for="name">Product name</lable><br>
+        <input type="text" id="name"><br>
+        <lable for="category">Category name</lable><br>
+        <select id="category">
+            <option>Phone</option>
+            <option>Tablet</option>
+            <option>Mp3</option>
+            <option>Laptop</option>
+            <option>Watch</option>
+        </select><br>
+        <lable for="price">Price</lable><br>
+        <input type="number" id="price"><br>
+        <lable for="qty">Quantity</lable><br>
+        <input type="number" id="qty"><br>
+        <button type="button" onclick="getTotal()">Get Total</button><br>
+        <lable for="total">Total price</lable><br>
+        <input type="number" id="total"><br>
+        <lable for="manuNo">Manufacturer Number</lable><br>
+        <select id="manuNo">
+            <option>Apple</option>
+            <option>Samsung</option>
+            <option>LG</option>
+            <option>Sony</option>
+            <option>Google</option>
+        </select><br><br>
+        <button type="button" onclick="add()">Add Product</button>
+        <button type="reset">Reset</button>
+    </fieldset>
+</form>
+<div id="show"></div>
+<div id="showedit"></div>
+</body>
+</html>
+<script>
+    function display(arr) {
+        let table = "<table border='1'>\n" +
+            "    <tr>\n" +
+            "        <th>Management Products</th>\n" +
+            "    </tr>\n" +
+            "    <tr>\n" +
+            "        <td>Product name</td>\n" +
+            "        <td>Category name</td>\n" +
+            "        <td>Price</td>\n" +
+            "        <td>Quantity</td>\n" +
+            "        <td>Total</td>\n" +
+            "        <td>Manufacturer name</td>\n" +
+            "        <td></td>\n" +
+            "        <td></td>\n" +
+            "    </tr>";
+
+        for(let i =0;i<arr.length;i++){
+            table+= " <tr>\n" +
+                "        <td>"+arr[i].pName+"</td>\n" +
+                "        <td>"+arr[i].pCategory+"</td>\n" +
+                "        <td>"+arr[i].pPrice+"</td>\n" +
+                "        <td>"+arr[i].pQty+"</td>\n" +
+                "        <td>"+arr[i].pTotal+"</td>\n" +
+                "        <td>"+arr[i].pManuNo+"</td>\n" +
+                "        <td><button type=\"button\" onclick=\"edit("+i+")\">Edit</button></td>\n" +
+                "        <td><button type=\"button\" onclick=\"del("+i+")\">Delete</button></td>\n" +
+                "    </tr>";
+        } table+= "</table>";
+        show.innerHTML = table;
+    }
+
+    let productArr = [];
+    function add() {
+        let name = document.getElementById('name').value;
+        let category = document.getElementById('category').value;
+        let price = document.getElementById('price').value;
+        let qty = document.getElementById('qty').value;
+        let total = document.getElementById('total').value;
+        let manuNo = document.getElementById('manuNo').value;
+        let obj = {pName: name,pCategory: category,pPrice: price,pQty: qty,pTotal:total,pManuNo:manuNo};
+        productArr.push(obj);
+        display(productArr)
+    }
+
+    function getTotal() {
+    let productPrice = document.getElementById('price').value;
+    let productQty = document.getElementById('qty').value;
+    document.getElementById('total').value = productPrice*productQty;
+    }
+
+    function del(i) {
+        productArr.splice(i,1);
+        display(productArr)
+    }
+    
+
+    function edit(i) {
+        let editTable = "<fieldset>" +
+            "Update Name: <input type='text' id='inputName' value='"+productArr[i].pName+"'><br>" +
+            "Update Category: <input type='date' id='inputCategory' value='"+productArr[i].pCategory+"'><br>" +
+            "Update Price: <input type='text' id='inputPrice' value='"+productArr[i].pPrice+"'><br>" +
+            "Updaye Quantity: <input type='text' id='inputQty' value='"+productArr[i].pQty+"'><br>" +
+                "<button type=\"button\" onclick='getTotal2()'>Get Total</button><br>" +
+            "Updaye Total: <input type='text' id='inputTotal' value='"+productArr[i].pTotal+"'><br>" +
+            "Update Manufacturer Name: <input type='text' id='inputManuNo' value='"+productArr[i].pManuNo+"'><br>" +
+            "<button type=\"button\" onclick=\"update("+i+")\">Update</button>" + "</fieldset>";
+        document.getElementById('showedit').innerHTML = editTable;
+    }
+
+    function getTotal2() {
+        let productPrice2 = document.getElementById('inputPrice').value;
+        let productQty2 = document.getElementById('inputQty').value;
+        document.getElementById('inputTotal').value = productPrice2*productQty2;
+    }
+
+    function update(i) {
+        let updateName = document.getElementById('inputName').value;
+        let updateCategory = document.getElementById('inputCategory').value;
+        let updatePrice = document.getElementById('inputPrice').value;
+        let updateQty = document.getElementById('inputQty').value;
+        let updateTotal = document.getElementById('inputTotal').value;
+        let updateManuNo = document.getElementById('inputManuNo').value;
+        productArr[i] = {pName: updateName,pCategory: updateCategory,pPrice: updatePrice,pQty: updateQty,pTotal:updateTotal,pManuNo:updateManuNo};
+        document.getElementById('showedit').innerHTML = '';
+        display(productArr);
+    }
+
+</script>

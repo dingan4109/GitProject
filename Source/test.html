@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    class Student{
+        constructor(no, fullName, birthday, averageScores) {
+            this.no = no;
+            this.fullName = fullName;
+            this.birthday = birthday;
+            this.averageScores = averageScores;
+        }
+        academicTest(){
+            if(this.averageScores > 10 || this.averageScores<0){
+                return "error!!!";
+            }else if(this.averageScores > 8){
+                return "Excellent student";
+            }else if(this.averageScores >= 6.5){
+                return "Advanced student";
+            }else if(this.averageScores >= 5){
+                return "Average student";
+            }else if(this.averageScores >= 3.5){
+                return "Weak student";
+            }else {
+                return "Poor student";
+            }
+        }
+    }
+
+    let studentList = [];
+    studentList.push(new Student('01','Minh Nhat', '27/10/1999',8));
+    studentList.push(new Student('02','Duyen Trinh', '12/01/1999',7));
+    studentList.push(new Student('03','Quoc Khanh', '13/8/1998',6));
+
+    function display() {
+        document.body.innerText = '';
+        let result = "<input type='button' value='Add new student' onclick='showAddForm()'>";
+        result += "<table border='1' style='border-collapse: collapse'>";
+        result += "<tr><th>No</th><th>Full Name</th><th>Birthday</th><th>Average Scores</th><th>Academic Ability</th><th>Delete</th><th>Edit</th></tr>";
+        for (let i=0; i<studentList.length; i++){
+            result+= "<tr>" + "<td>"+ studentList[i].no+"</td>"
+                +"<td>"+ studentList[i].fullName +"</td>"
+                +"<td>"+ studentList[i].birthday +"</td>"
+                +"<td>"+ studentList[i].averageScores +"</td>"
+                +"<td>"+ studentList[i].academicTest()+"</td>"
+                +"<td><input type='button' value='Delete' onclick='deleteStudent("+i+")'></td>"
+                +"<td><input type='button' value='Edit' onclick='showEditForm("+i+")'></td>"
+                +"</tr>";
+        }
+        result += "</table>";
+        document.write(result);
+    }
+
+    function showAddForm() {
+        document.body.innerText = '';
+        let result = "ID: <input type='text' id='no'><br>";
+        result+="Full name: <input type='text' id='fullName'><br>";
+        result+="Birthday: <input type='text' id='birthday'><br>";
+        result+="Average Scores: <input type='text' id='averageScores'><br>";
+        result += "<input type='button' value='add student' onclick='addStudent()'>";
+        document.write(result);
+    }
+
+    function addStudent() {
+        let no = document.getElementById('no').value;
+        let fullName = document.getElementById('fullName').value;
+        let birthday = document.getElementById('birthday').value;
+        let averageScores = document.getElementById('averageScores').value;
+        studentList.push(new Student(no,fullName,birthday, averageScores));
+        display();
+    }
+    function deleteStudent(i) {
+        if(confirm("Would you like to delete this student")){
+            studentList.splice(i,1);
+            display();
+        }
+    }
+    function showEditForm(i) {
+        document.body.innerText = '';
+        let result = "No: <input type='text' id='no' value='"+studentList[i].no+"'><br>";
+        result+="Full Name: <input type='text' id='fullName' value='"+studentList[i].fullName+"'><br>";
+        result+="Birthday: <input type='text' id='birthday' value='"+studentList[i].birthday+"'><br>";
+        result+="Average Scores: <input type='text' id='averageScores' value='"+studentList[i].averageScores+"'><br>";
+        result += "<input type='button' value='edit student' onclick='editStudent("+i+")'>";
+        document.write(result);
+    }
+    function editStudent(i) {
+        let no = document.getElementById('no').value;
+        let fullName = document.getElementById('fullName').value;
+        let birthday = document.getElementById('birthday').value;
+        let averageScores = document.getElementById('averageScores').value;
+        studentList[i] = new Student(no,fullName,birthday,averageScores);
+        display()
+    }
+    display();
+</script>
+</body>
+</html>
