@@ -4,5 +4,16 @@
 }
 .img-sm {
 	width: 100px;
-	height: 150px
+	height: 150px;
 }
+.container {
+  position: relative;
+  text-align: center;
+  color: black;
+}
+.left {
+  position: absolute;
+  top: 20%;
+  left: 25%;
+}
+
