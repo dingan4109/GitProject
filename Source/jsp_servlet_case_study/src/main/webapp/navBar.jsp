@@ -34,15 +34,11 @@
     <div class="col-md-9">
         <ul class="list-unstyled list-inline">
             <li class="list-inline-item"><a href="#">Home</a></li>
-            <li class="list-inline-item"><a href="#">Employee</a></li>
+            <li class="list-inline-item"><a href="/employeeServlet?currentPage=1">Employee</a></li>
             <li class="list-inline-item sub-list-hover"><a
                     href="/customerServlet?currentPage=1">Customer
-            </a>
-                <ul class="list-unstyled sub-list">
-                    <li><a href="/customerServlet?action=viewCustomerTypes">Customer Type</a></li>
-                </ul>
-            </li>
-            <li class="list-inline-item"><a href="#">Service</a></li>
+            </a></li>
+            <li class="list-inline-item"><a href="/serviceServlet">Service</a></li>
             <li class="list-inline-item"><a href="#">Contract</a></li>
         </ul>
     </div>

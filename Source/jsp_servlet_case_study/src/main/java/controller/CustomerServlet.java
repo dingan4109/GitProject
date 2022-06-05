@@ -141,18 +141,15 @@ public class CustomerServlet extends HttpServlet {
     }
 
     private void createCustomer(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        List<CustomerType> customerTypes = customerTypeService.selectCustomerTypes();
+
         String customer_type = request.getParameter("customer_type");
         int customer_type_id = 0;
-        switch (customer_type) {
-            case "VIP":
-                customer_type_id = 1;
+        for(int i = 0;i<customerTypes.size();i++) {
+            if(customer_type.equals(customerTypes.get(i).getCustomerTypeName())){
+                customer_type_id = customerTypes.get(i).getCustomerTypeId();
                 break;
-            case "Premium":
-                customer_type_id = 2;
-                break;
-            case "Gold":
-                customer_type_id = 3;
-                break;
+            }
         }
 
         String customer_name = request.getParameter("name");

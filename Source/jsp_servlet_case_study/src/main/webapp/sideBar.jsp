@@ -24,9 +24,10 @@
 <body>
 <div class="col-md-3">
     <ul class="list-unstyled">
-        <li><a href="#">Item One</a></li>
-        <li><a href="#">Item Two</a></li>
-        <li><a href="#">Item Three</a></li>
+        <li><a href="/customerServlet?action=viewCustomerTypes">Customer Type</a></li>
+        <li><a href="/serviceServlet?action=viewRentTypes">Rent Type</a></li>
+        <li><a href="/serviceServlet?action=viewServiceTypes">Service Type</a></li>
+        <li><a href="/employeeServlet?action=user">User</a></li>
     </ul>
 </div>
 </body>

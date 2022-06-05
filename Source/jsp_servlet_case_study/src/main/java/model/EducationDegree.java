@@ -7,6 +7,10 @@ public class EducationDegree {
     public EducationDegree() {
     }
 
+    public EducationDegree(String educationDegreeName) {
+        this.educationDegreeName = educationDegreeName;
+    }
+
     public EducationDegree(int educationDegreeId, String educationDegreeName) {
         this.educationDegreeId = educationDegreeId;
         this.educationDegreeName = educationDegreeName;
