@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/layout::headLibs">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body class="container-fluid">
+<div th:replace="layout/layout::navBar"></div>
+<div class="row">
+    <div th:replace="layout/layout::sideBar"></div>
+    <div class="col-md-9">
+        <h1>Create new customer</h1>
+        <p>
+            <a th:href="@{/customers/list}">
+                <button class="btn btn-primary me-md-2"
+                        style="background: lightgrey">Back to customer list
+                </button>
+            </a>
+        </p>
+        <form th:action="@{/customers/create}" th:method="post" th:object="${customer}">
+            <div class="col-md-9">
+                <lable class="form-label">Customer type</lable>
+                <select th:field="*{customerType}">
+                    <option value="">Select</option>
+                    <option th:each="customerType : ${customerTypes}"
+                            th:value="${customerType.customerTypeId}"
+                            th:text="${customerType.customerTypeName}"></option>
+                </select>
+            </div>
+            <div class="col-md-9">
+                <lable class="form-label" for="name">Name</lable>
+                <input type="text" class="form-control" id="name" th:field="*{customerName}">
+            </div>
+            <div class="col-md-9">
+                <lable class="form-label" for="birthday">Birthday</lable>
+                <input type="date" class="form-control" id="birthday" th:field="*{customerBirthday}">
+<!--                <p th:if="${#fields.hasErrors('customerBirthday')}" th:errors="*{customerBirthday}"></p>-->
+            </div>
+            <div class="col-md-9">
+                <lable class="form-label">Gender</lable>
+                <select th:field="*{customerGender}">
+                    <option th:value="1"
+                            th:text="Nam"></option>
+                    <option th:value="0"
+                            th:text="Nữ"></option>
+                </select>
+<!--                <p th:if="${#fields.hasErrors('customerGender')}" th:errors="*{customerGender}"></p>-->
+            </div>
+            <div class="col-md-9">
+                <lable class="form-label" for="idCard">Id card</lable>
+                <input type="text" class="form-control" id="idCard" th:field="*{customerIdCard}">
+<!--                <p th:if="${#fields.hasErrors('customerIdCard')}" th:errors="*{customerIdCard}"></p>-->
+            </div>
+            <div class="col-md-9">
+                <lable class="form-label" for="phoneNumber">Phone number</lable>
+                <input type="text" class="form-control" id="phoneNumber" th:field="*{customerPhoneNumber}">
+            </div>
+            <div class="col-md-9">
+                <lable class="form-label" for="email">Email</lable>
+                <input type="text" class="form-control" id="email" th:field="*{customerEmail}">
+            </div>
+            <div class="col-md-9">
+                <lable class="form-label" for="address">Address</lable>
+                <input type="text" class="form-control" id="address" th:field="*{customerAddress}">
+<!--                <p th:if="${#fields.hasErrors('customerAddress')}" th:errors="*{customerAddress}"></p>-->
+            </div>
+            <div>
+                <button type="submit" class="btn btn-primary">Create new customer</button>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

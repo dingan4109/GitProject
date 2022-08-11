@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/layout::headLibs">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body class="container-fluid">
+<div th:replace="layout/layout::navBar"></div>
+<div class="row">
+    <div th:replace="layout/layout::sideBar"></div>
+    <div class="col-md-9">
+        <h1>Edit employee</h1>
+        <p>
+            <a th:href="@{/customers/list}">
+                <button class="btn btn-primary me-md-2"
+                        style="background: lightgrey">Back to employee list
+                </button>
+            </a>
+        </p>
+        <form th:action="@{/employees/edit}" th:method="post" th:object="${employee}">
+            <input type="text" hidden th:field="*{employeeId}">
+            <input type="text" hidden name="userId" th:value="${userId}">
+            <div class="col-md-9">
+                <lable class="form-label" for="name">Name</lable>
+                <input type="text" class="form-control" id="name" th:field="*{employeeName}">
+            </div>
+            <div class="col-md-9">
+                <lable class="form-label" for="birthday">Birthday</lable>
+                <input type="date" class="form-control" id="birthday" th:field="*{employeeBirthday}">
+                <!--                <p th:if="${#fields.hasErrors('employeeBirthday')}" th:errors="*{employeeBirthday}"></p>-->
+            </div>
+            <div class="col-md-9">
+                <lable class="form-label" for="idCard">Id card</lable>
+                <input type="text" class="form-control" id="idCard" th:field="*{employeeIdCard}">
+                <!--                <p th:if="${#fields.hasErrors('employeeIdCard')}" th:errors="*{employeeIdCard}"></p>-->
+            </div>
+            <div class="col-md-9">
+                <lable class="form-label" for="salary">Salary</lable>
+                <input type="text" class="form-control" id="salary" th:field="*{employeeSalary}">
+                <!--                <p th:if="${#fields.hasErrors('employeeSalary')}" th:errors="*{employeeSalary}"></p>-->
+            </div>
+            <div class="col-md-9">
+                <lable class="form-label" for="phoneNumber">Phone number</lable>
+                <input type="text" class="form-control" id="phoneNumber" th:field="*{employeePhoneNumber}">
+            </div>
+            <div class="col-md-9">
+                <lable class="form-label" for="email">Email</lable>
+                <input type="text" class="form-control" id="email" th:field="*{employeeEmail}">
+            </div>
+            <div class="col-md-9">
+                <lable class="form-label" for="address">Address</lable>
+                <input type="text" class="form-control" id="address" th:field="*{employeeAddress}">
+                <!--                <p th:if="${#fields.hasErrors('employeeAddress')}" th:errors="*{employeeAddress}"></p>-->
+            </div>
+            <div class="col-md-9">
+                <lable class="form-label">Position</lable>
+                <select th:field="*{position}">
+                    <option value="">Select</option>
+                    <option th:each="position : ${positions}"
+                            th:value="${position.positionId}"
+                            th:text="${position.positionName}"></option>
+                </select>
+            </div>
+            <div class="col-md-9">
+                <lable class="form-label">Education Degree</lable>
+                <select th:field="*{educationDegree}">
+                    <option value="">Select</option>
+                    <option th:each="educationDegree : ${educationDegrees}"
+                            th:value="${educationDegree.educationDegreeId}"
+                            th:text="${educationDegree.educationDegreeName}"></option>
+                </select>
+            </div>
+            <div class="col-md-9">
+                <lable class="form-label">Division</lable>
+                <select th:field="*{division}">
+                    <option value="">Select</option>
+                    <option th:each="division : ${divisions}"
+                            th:value="${division.divisionId}"
+                            th:text="${division.divisionName}"></option>
+                </select>
+            </div>
+            <br>
+            <div>
+                <button type="submit" class="btn btn-primary">Update employee</button>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

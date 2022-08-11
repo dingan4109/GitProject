@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/layout::headLibs">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body class="container-fluid">
+<div th:replace="layout/layout::navBar"></div>
+<div class="row">
+    <div th:replace="layout/layout::sideBar"></div>
+    <div class="col-md-9">
+        <h1>Create new customer</h1>
+        <p>
+            <a th:href="@{/customers/list}">
+                <button class="btn btn-primary me-md-2"
+                        style="background: lightgrey">Back to contract list
+                </button>
+            </a>
+        </p>
+        <form th:action="@{/contracts/create}" th:method="post" th:object="${contract}">
+            <div class="col-md-9">
+                <lable class="form-label" for="name">Start date</lable>
+                <input type="date" class="form-control" id="name" th:field="*{contractEndDate}">
+            </div>
+            <div class="col-md-9">
+                <lable class="form-label" for="name">End date</lable>
+                <input type="date" class="form-control" id="name" th:field="*{contractStartDate}">
+            </div>
+            <div class="col-md-9">
+                <lable class="form-label" for="deposit">Deposit</lable>
+                <input type="text" class="form-control" id="deposit" th:field="*{deposit}">
+            </div>
+            <div class="col-md-9">
+                <lable class="form-label">Employee</lable>
+                <select th:field="*{employee}">
+                    <option value="">Select</option>
+                    <option th:each="employee : ${employees}"
+                            th:value="${employee.employeeId}"
+                            th:text="${employee.employeeName}"></option>
+                </select>
+            </div>
+            <div class="col-md-9">
+                <lable class="form-label">Customer</lable>
+                <select th:field="*{customer}">
+                    <option value="">Select</option>
+                    <option th:each="customer : ${customers}"
+                            th:value="${customer.customerId}"
+                            th:text="${customer.customerName}"></option>
+                </select>
+            </div>
+            <div class="col-md-9">
+                <lable class="form-label">Facility</lable>
+                <select th:field="*{facility}">
+                    <option value="">Select</option>
+                    <option th:each="facility : ${facilities}"
+                            th:value="${facility.facilityId}"
+                            th:text="${facility.facilityName}"></option>
+                </select>
+            </div>
+            <div>
+                <button type="submit" class="btn btn-primary">Create new contract</button>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

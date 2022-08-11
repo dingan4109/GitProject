@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/layout::headLibs">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body class="container-fluid">
+<div th:replace="layout/layout::navBar"></div>
+<div class="row">
+    <div th:replace="layout/layout::sideBar"></div>
+    <div class="col-md-9">
+        <h1>Contract list</h1>
+        <p>
+            <a th:href="@{/contracts/create}">
+                <button class="btn btn-primary">Create new contract</button>
+            </a>
+        </p>
+        <br>
+        <table class="table table-striped table-hover">
+            <tr>
+
+                <th>Facility</th>
+                <th>Start date</th>
+                <th>End date</th>
+                <th>Deposit</th>
+                <th>Total</th>
+                <th>Customer</th>
+                <th>Employee</th>
+                <th colspan="2">Attach Facility</th>
+            </tr>
+            <tr th:each="contract : ${contracts}">
+                <td th:text="${contract.facility.facilityName}"></td>
+                <td th:text="${contract.contractStartDate}"></td>
+                <td th:text="${contract.contractEndDate}"></td>
+                <td th:text="${contract.deposit}"></td>
+                <td th:text="${contract.deposit}"></td>
+                <td th:text="${contract.customer.customerName}"></td>
+                <td th:text="${contract.employee.employeeName}"></td>
+                <td><button class="btn btn-primary"
+                            th:onclick="createContractDetail([[${contractDetail}]],[[${attachFacilities}]],[[${contracts}]])"
+                            data-bs-toggle="modal"
+                            data-bs-target="#createContractDetail">+</button></td>
+                <td><button class="btn btn-primary"
+                            th:onclick="showAttachFacilities([[${attachFacilities}]])"
+                            data-bs-toggle="modal"
+                            data-bs-target="#attachFacility">Attach facility</button></td>
+            </tr>
+        </table>
+        <!--        Pagination-->
+        <div th:if="${contracts.getTotalElements() != 0}">
+            <ul class="pagination">
+                <li class="page-item">
+                    <a class="page-link" th:if="${contracts.hasPrevious()}"
+                       th:href="@{'/contracts/list'(page=${contracts.number -1})}">
+                        <span>&laquo;</span>
+                    </a>
+                </li>
+                <th:block th:each="i:${#numbers.sequence(0,contracts.totalPages - 1)}">
+                    <li th:if="${contracts.number == i}" class="page-item active">
+                        <a class="page-link" th:href="@{'/contracts/list'(page=${i})}" th:text="${i+1}"></a>
+                    </li>
+                    <li th:unless="${contracts.number == i}" class="page-item">
+                        <a class="page-link" th:href="@{'/contracts/list'(page=${i})}" th:text="${i+1}"></a>
+                    </li>
+                </th:block>
+
+                <li class="page-item">
+                    <a class="page-link" th:if="${contracts.hasNext()}"
+                       th:href="@{'/contracts/list'(page=${contracts.number +1})}">
+                        <span>&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <!--        End pagination-->
+    </div>
+</div>
+
+<!--Modal show attach facilities-->
+<div class="modal fade" id="attachFacility" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Attach Facility List</h5>
+            </div>
+            <div class="modal-body">
+                <div id="showList"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--End modal show attach facilities-->
+
+<!--Modal create contract detail-->
+<div class="modal fade" id="createContractDetail" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Create new contract detail</h5>
+            </div>
+            <form th:action="@{/contracts/createDetailContract}" th:method="post">
+            <div class="modal-body">
+           ...
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-secondary">Create new contract detail</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!--End modal create contract detail-->
+</body>
+</html>
+<script>
+    function showAttachFacilities(attachFacilities) {
+        let list = attachFacilities.content;
+        let content = "<table class='table'>\n" +
+            "                    <tr>\n" +
+            "                        <th>Name</th>\n" +
+            "                        <th>Cost</th>\n" +
+            "                    </tr>";
+        for(let i = 0; i<list.length;i++) {
+            content += "<tr>" +
+                "<td>"+ list[i].attachFacilityName + "</td>" +
+                "<td>" + list[i].cost + "</td></tr>"
+        }
+        content += "</table>";
+        document.getElementById('showList').innerHTML = content;
+    }
+
+    function createContractDetail(contractDetail,attachFacilities,contracts) {
+        let content = "<form action='/contracts/createContractDetail' method='post' object='"+contractDetail+"'>" +
+            "<table>" +
+            "<tr>" +
+            "<td>Contract</td></tr></table>" +
+            "</form>";
+    }
+</script>

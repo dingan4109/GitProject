@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/layout::headLibs">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body class="container-fluid">
+<div th:replace="layout/layout::navBar"></div>
+<div class="row">
+    <div th:replace="layout/layout::sideBar"></div>
+    <div class="col-md-9">
+        <h1>Edit facility</h1>
+        <p>
+            <a th:href="@{/facilities/list}">
+                <button class="btn btn-primary me-md-2"
+                        style="background: lightgrey">Back to facility list
+                </button>
+            </a>
+        </p>
+        <form th:action="@{/facilities/edit}" th:method="post" th:object="${facility}">
+            <input type="text" hidden th:field="*{facilityId}">
+            <div class="col-md-9">
+                <lable class="form-label" for="name">Name</lable>
+                <input type="text" class="form-control" id="name" th:field="*{facilityName}">
+            </div>
+            <div class="col-md-9">
+                <lable class="form-label" for="area">Area</lable>
+                <input type="text" class="form-control" id="area" th:field="*{area}">
+                <!--                <p th:if="${#fields.hasErrors('facilityArea')}" th:errors="*{facilityArea}"></p>-->
+            </div>
+            <div class="col-md-9">
+                <lable class="form-label" for="cost">Cost</lable>
+                <input type="text" class="form-control" id="cost" th:field="*{cost}">
+                <!--                <p th:if="${#fields.hasErrors('cost')}" th:errors="*{cost}"></p>-->
+            </div>
+            <div class="col-md-9">
+                <lable class="form-label" for="maxPeople">Max people</lable>
+                <input type="text" class="form-control" id="maxPeople" th:field="*{maxPeople}">
+                <!--                <p th:if="${#fields.hasErrors('maxPeople')}" th:errors="*{maxPeople}"></p>-->
+            </div>
+            <div class="col-md-9">
+                <lable class="form-label">Rent type</lable>
+                <select th:field="*{rentType}">
+                    <option value="">Select</option>
+                    <option th:each="rentType : ${rentTypes}"
+                            th:value="${rentType.rentTypeId}"
+                            th:text="${rentType.rentTypeName}"
+                    th:selected="(*{rentType}) and (${rentType.rentTypeId} == *{rentType.rentTypeId})"></option>
+                </select>
+            </div>
+            <div class="col-md-9">
+                <lable class="form-label">Facility type</lable>
+                <select th:field="*{facilityType}">
+                    <option value="">Select</option>
+                    <option th:each="facilityType : ${facilityTypes}"
+                            th:value="${facilityType.facilityTypeId}"
+                            th:text="${facilityType.facilityTypeName}"
+                    th:selected="(*{facilityType}) and (${facilityType.facilityTypeId} == *{facilityType.facilityTypeId})"></option>
+                </select>
+            </div>
+            <div class="col-md-9">
+                <lable class="form-label" for="standardRoom">Standard room</lable>
+                <input type="text" class="form-control" id="standardRoom" th:field="*{standardRoom}">
+            </div>
+            <div class="col-md-9">
+                <lable class="form-label" for="description">Description other convenience</lable>
+                <input type="text" class="form-control" id="description" th:field="*{descriptionOtherConvenience}">
+            </div>
+            <div class="col-md-9">
+                <lable class="form-label" for="poolArea">Pool area</lable>
+                <input type="text" class="form-control" id="poolArea" th:field="*{poolArea}">
+                <!--                <p th:if="${#fields.hasErrors('poolArea')}" th:errors="*{poolArea}"></p>-->
+            </div>
+            <div class="col-md-9">
+                <lable class="form-label" for="floors">Number of floors</lable>
+                <input type="text" class="form-control" id="floors" th:field="*{numberOfFloors}">
+                <!--                <p th:if="${#fields.hasErrors('numberOfFloors')}" th:errors="*{numberOfFloors}"></p>-->
+            </div>
+            <div class="col-md-9">
+                <lable class="form-label" for="free">Free</lable>
+                <input type="text" class="form-control" id="free" th:field="*{facilityFree}">
+            </div>
+            <br>
+            <div>
+                <button type="submit" class="btn btn-primary">Update facility</button>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>
