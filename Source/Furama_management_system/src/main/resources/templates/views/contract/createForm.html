@@ -20,11 +20,13 @@
         <form th:action="@{/contracts/create}" th:method="post" th:object="${contract}">
             <div class="col-md-9">
                 <lable class="form-label" for="name">Start date</lable>
-                <input type="date" class="form-control" id="name" th:field="*{contractEndDate}">
+                <input type="date" class="form-control" id="name" th:field="*{contractStartDate}">
+                <p class="validate" th:if="${#fields.hasErrors('contractStartDate')}" th:errors="*{contractStartDate}"></p>
             </div>
             <div class="col-md-9">
                 <lable class="form-label" for="name">End date</lable>
-                <input type="date" class="form-control" id="name" th:field="*{contractStartDate}">
+                <input type="date" class="form-control" id="name" th:field="*{contractEndDate}">
+                <p class="validate" th:if="${#fields.hasErrors('contractEndDate')}" th:errors="*{contractEndDate}"></p>
             </div>
             <div class="col-md-9">
                 <lable class="form-label" for="deposit">Deposit</lable>

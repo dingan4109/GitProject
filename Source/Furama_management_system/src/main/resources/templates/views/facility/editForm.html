@@ -22,21 +22,22 @@
             <div class="col-md-9">
                 <lable class="form-label" for="name">Name</lable>
                 <input type="text" class="form-control" id="name" th:field="*{facilityName}">
+                <p class="validate" th:if="${#fields.hasErrors('facilityName')}" th:errors="*{facilityName}"></p>
             </div>
             <div class="col-md-9">
                 <lable class="form-label" for="area">Area</lable>
                 <input type="text" class="form-control" id="area" th:field="*{area}">
-                <!--                <p th:if="${#fields.hasErrors('facilityArea')}" th:errors="*{facilityArea}"></p>-->
+                <p class="validate" th:if="${#fields.hasErrors('facilityArea')}" th:errors="*{facilityArea}"></p>
             </div>
             <div class="col-md-9">
                 <lable class="form-label" for="cost">Cost</lable>
                 <input type="text" class="form-control" id="cost" th:field="*{cost}">
-                <!--                <p th:if="${#fields.hasErrors('cost')}" th:errors="*{cost}"></p>-->
+                <p class="validate" th:if="${#fields.hasErrors('cost')}" th:errors="*{cost}"></p>
             </div>
             <div class="col-md-9">
                 <lable class="form-label" for="maxPeople">Max people</lable>
                 <input type="text" class="form-control" id="maxPeople" th:field="*{maxPeople}">
-                <!--                <p th:if="${#fields.hasErrors('maxPeople')}" th:errors="*{maxPeople}"></p>-->
+                <p class="validate" th:if="${#fields.hasErrors('maxPeople')}" th:errors="*{maxPeople}"></p>
             </div>
             <div class="col-md-9">
                 <lable class="form-label">Rent type</lable>
@@ -69,12 +70,12 @@
             <div class="col-md-9">
                 <lable class="form-label" for="poolArea">Pool area</lable>
                 <input type="text" class="form-control" id="poolArea" th:field="*{poolArea}">
-                <!--                <p th:if="${#fields.hasErrors('poolArea')}" th:errors="*{poolArea}"></p>-->
+                <p class="validate" th:if="${#fields.hasErrors('poolArea')}" th:errors="*{poolArea}"></p>
             </div>
             <div class="col-md-9">
                 <lable class="form-label" for="floors">Number of floors</lable>
                 <input type="text" class="form-control" id="floors" th:field="*{numberOfFloors}">
-                <!--                <p th:if="${#fields.hasErrors('numberOfFloors')}" th:errors="*{numberOfFloors}"></p>-->
+                <p class="validate" th:if="${#fields.hasErrors('numberOfFloors')}" th:errors="*{numberOfFloors}"></p>
             </div>
             <div class="col-md-9">
                 <lable class="form-label" for="free">Free</lable>

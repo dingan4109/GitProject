@@ -30,11 +30,12 @@
             <div class="col-md-9">
                 <lable class="form-label" for="name">Name</lable>
                 <input type="text" class="form-control" id="name" th:field="*{customerName}">
+                <p class="validate" th:if="${#fields.hasErrors('customerName')}" th:errors="*{customerName}"></p>
             </div>
             <div class="col-md-9">
                 <lable class="form-label" for="birthday">Birthday</lable>
                 <input type="date" class="form-control" id="birthday" th:field="*{customerBirthday}">
-<!--                <p th:if="${#fields.hasErrors('customerBirthday')}" th:errors="*{customerBirthday}"></p>-->
+                <p class="validate" th:if="${#fields.hasErrors('customerBirthday')}" th:errors="*{customerBirthday}"></p>
             </div>
             <div class="col-md-9">
                 <lable class="form-label">Gender</lable>
@@ -44,25 +45,25 @@
                     <option th:value="0"
                             th:text="Nữ"></option>
                 </select>
-<!--                <p th:if="${#fields.hasErrors('customerGender')}" th:errors="*{customerGender}"></p>-->
             </div>
             <div class="col-md-9">
                 <lable class="form-label" for="idCard">Id card</lable>
                 <input type="text" class="form-control" id="idCard" th:field="*{customerIdCard}">
-<!--                <p th:if="${#fields.hasErrors('customerIdCard')}" th:errors="*{customerIdCard}"></p>-->
+                <p class="validate" th:if="${#fields.hasErrors('customerIdCard')}" th:errors="*{customerIdCard}"></p>
             </div>
             <div class="col-md-9">
                 <lable class="form-label" for="phoneNumber">Phone number</lable>
                 <input type="text" class="form-control" id="phoneNumber" th:field="*{customerPhoneNumber}">
+                <p class="validate" th:if="${#fields.hasErrors('customerPhoneNumber')}" th:errors="*{customerPhoneNumber}"></p>
             </div>
             <div class="col-md-9">
                 <lable class="form-label" for="email">Email</lable>
                 <input type="text" class="form-control" id="email" th:field="*{customerEmail}">
+                <p class="validate" th:if="${#fields.hasErrors('customerEmail')}" th:errors="*{customerEmail}"></p>
             </div>
             <div class="col-md-9">
                 <lable class="form-label" for="address">Address</lable>
                 <input type="text" class="form-control" id="address" th:field="*{customerAddress}">
-<!--                <p th:if="${#fields.hasErrors('customerAddress')}" th:errors="*{customerAddress}"></p>-->
             </div>
             <div>
                 <button type="submit" class="btn btn-primary">Create new customer</button>

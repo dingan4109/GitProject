@@ -21,34 +21,36 @@
             <div class="col-md-9">
                 <lable class="form-label" for="name">Name</lable>
                 <input type="text" class="form-control" id="name" th:field="*{employeeName}">
+                <p class="validate" th:if="${#fields.hasErrors('employeeName')}" th:errors="*{employeeName}"></p>
             </div>
             <div class="col-md-9">
                 <lable class="form-label" for="birthday">Birthday</lable>
                 <input type="date" class="form-control" id="birthday" th:field="*{employeeBirthday}">
-<!--                <p th:if="${#fields.hasErrors('employeeBirthday')}" th:errors="*{employeeBirthday}"></p>-->
+                <p class="validate" th:if="${#fields.hasErrors('employeeBirthday')}" th:errors="*{employeeBirthday}"></p>
             </div>
             <div class="col-md-9">
                 <lable class="form-label" for="idCard">Id card</lable>
                 <input type="text" class="form-control" id="idCard" th:field="*{employeeIdCard}">
-<!--                <p th:if="${#fields.hasErrors('employeeIdCard')}" th:errors="*{employeeIdCard}"></p>-->
+                <p class="validate" th:if="${#fields.hasErrors('employeeIdCard')}" th:errors="*{employeeIdCard}"></p>
             </div>
             <div class="col-md-9">
                 <lable class="form-label" for="salary">Salary</lable>
                 <input type="text" class="form-control" id="salary" th:field="*{employeeSalary}">
-<!--                <p th:if="${#fields.hasErrors('employeeSalary')}" th:errors="*{employeeSalary}"></p>-->
+                <p class="validate" th:if="${#fields.hasErrors('employeeSalary')}" th:errors="*{employeeSalary}"></p>
             </div>
             <div class="col-md-9">
                 <lable class="form-label" for="phoneNumber">Phone number</lable>
                 <input type="text" class="form-control" id="phoneNumber" th:field="*{employeePhoneNumber}">
+                <p class="validate" th:if="${#fields.hasErrors('employeePhoneNumber')}" th:errors="*{employeePhoneNumber}"></p>
             </div>
             <div class="col-md-9">
                 <lable class="form-label" for="email">Email</lable>
                 <input type="text" class="form-control" id="email" th:field="*{employeeEmail}">
+                <p class="validate" th:if="${#fields.hasErrors('employeeEmail')}" th:errors="*{employeeEmail}"></p>
             </div>
             <div class="col-md-9">
                 <lable class="form-label" for="address">Address</lable>
                 <input type="text" class="form-control" id="address" th:field="*{employeeAddress}">
-<!--                <p th:if="${#fields.hasErrors('employeeAddress')}" th:errors="*{employeeAddress}"></p>-->
             </div>
             <div class="col-md-9">
                 <lable class="form-label">Position</lable>

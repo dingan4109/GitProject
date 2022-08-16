@@ -19,6 +19,11 @@
             color: black;
         }
 
+        .validate {
+            color: red;
+            font-style: italic;
+        }
+
     </style>
 </head>
 <body>
@@ -45,9 +50,9 @@
                 </div>
             </div>
 
-<!--            <div class="d-flex">-->
-<!--                <span>Welcome <span th:text="${}"/></span>-->
-<!--            </div>-->
+            <div class="d-flex">
+                <span>Welcome <span th:text="${user.username}"/></span>
+            </div>
         </div>
     </nav>
 </div>

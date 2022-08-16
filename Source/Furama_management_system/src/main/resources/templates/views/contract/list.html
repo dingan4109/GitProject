@@ -36,10 +36,7 @@
                 <td th:text="${contract.deposit}"></td>
                 <td th:text="${contract.customer.customerName}"></td>
                 <td th:text="${contract.employee.employeeName}"></td>
-                <td><button class="btn btn-primary"
-                            th:onclick="createContractDetail([[${contractDetail}]],[[${attachFacilities}]],[[${contracts}]])"
-                            data-bs-toggle="modal"
-                            data-bs-target="#createContractDetail">+</button></td>
+                <td><button class="btn btn-primary">+</button></td>
                 <td><button class="btn btn-primary"
                             th:onclick="showAttachFacilities([[${attachFacilities}]])"
                             data-bs-toggle="modal"
@@ -94,28 +91,6 @@
     </div>
 </div>
 <!--End modal show attach facilities-->
-
-<!--Modal create contract detail-->
-<div class="modal fade" id="createContractDetail" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-     aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Create new contract detail</h5>
-            </div>
-            <form th:action="@{/contracts/createDetailContract}" th:method="post">
-            <div class="modal-body">
-           ...
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-secondary">Create new contract detail</button>
-            </div>
-            </form>
-        </div>
-    </div>
-</div>
-<!--End modal create contract detail-->
 </body>
 </html>
 <script>
@@ -133,13 +108,5 @@
         }
         content += "</table>";
         document.getElementById('showList').innerHTML = content;
-    }
-
-    function createContractDetail(contractDetail,attachFacilities,contracts) {
-        let content = "<form action='/contracts/createContractDetail' method='post' object='"+contractDetail+"'>" +
-            "<table>" +
-            "<tr>" +
-            "<td>Contract</td></tr></table>" +
-            "</form>";
     }
 </script>

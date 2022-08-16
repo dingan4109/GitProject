@@ -1,4 +1,9 @@
-use spring_case_study_2;
+use furama_management_system_project;
+
+insert into user(password, username) VALUES ('$2a$10$OBTxEe8n90PWGXUureVhi.gdzmZdrDSx/5bykDBLRrp18B2kkQZOy','admin'),('$2a$10$OBTxEe8n90PWGXUureVhi.gdzmZdrDSx/5bykDBLRrp18B2kkQZOy','user');
+insert into role(role_name) values ('ROLE_ADMIN'),('ROLE_USER');
+insert into user_role(role_id, user_id) VALUES (1,1),(2,2);
+
 insert into facility_type (facility_type_name)
 values ('Villa'),('House'),('Room');
 insert into rent_type (rent_type_name)
