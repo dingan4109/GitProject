@@ -15,8 +15,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-
 
 @RestController
 @RequestMapping("api/categories")
@@ -44,7 +42,6 @@ public class CategoryRestController {
         }else {
             Page<Blog> blogList = blogService.findAllByCategory(id,pageable);
             return new ResponseEntity<>(blogList,HttpStatus.OK);
-//            return new ResponseEntity<>(category.getBlogs(),HttpStatus.OK);
         }
     }
 

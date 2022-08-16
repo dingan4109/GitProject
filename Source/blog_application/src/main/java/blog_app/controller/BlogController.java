@@ -1,25 +1,16 @@
 package blog_app.controller;
 
-import blog_app.entity.Account;
 import blog_app.entity.Blog;
 import blog_app.entity.Category;
 import blog_app.service.BlogService;
 import blog_app.service.CategoryService;
-import blog_app.service.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.annotation.CurrentSecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-
-import javax.servlet.http.HttpServletRequest;
-import java.security.Principal;
 
 @Controller
 public class BlogController {
@@ -33,22 +24,18 @@ public class BlogController {
         return categoryService.findAll(pageable);
     }
 
-    @GetMapping("/login")
-    public ModelAndView login() {
-        ModelAndView modelAndView = new ModelAndView("logPage");
-        return modelAndView;
-    }
-
     @GetMapping("/blogs")
     public ModelAndView blogList(@PageableDefault(value = 4) Pageable pageable) {
-        String username = SecurityContextHolder.getContext().getAuthentication().getName();
-
         Page<Blog> blogList;
+//        if(!searchByTitle.isPresent()) {
+//            blogList = blogService.findAll(pageable);
+//        }else {
+//            blogList = blogService.search(searchByTitle.get(),pageable);
+//        }
         blogList = blogService.findAll(pageable);
         ModelAndView modelAndView = new ModelAndView("list");
         modelAndView.addObject("page","list");
         modelAndView.addObject("blogList",blogList);
-        modelAndView.addObject("user",username);
 
         return modelAndView;
     }

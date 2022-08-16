@@ -4,15 +4,12 @@ import blog_app.entity.Blog;
 import blog_app.repository.BlogRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 
 @Service
 public class BlogServiceImpl implements BlogService {
-//    Pageable fistPage = PageRequest.of(0,2, Sort.by("id"));
     @Autowired
     BlogRepo blogRepo;
     @Override

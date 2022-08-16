@@ -1,8 +1,5 @@
 <!DOCTYPE html>
-<html lang="en"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:fragment="lib">
     <meta charset="UTF-8">
     <title>Blogs...</title>
@@ -12,7 +9,6 @@
             integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
             crossorigin="anonymous"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-
     <script>
         // Search
         function search() {
@@ -47,7 +43,7 @@
             });
         }
 
-        // Load more
+        // Load more function
         let page = 0;
 
        window.onload = function loadFirstPage() {
@@ -100,14 +96,11 @@
             text-decoration: none;
             color: black;
         }
-
     </style>
 </head>
 <body class="container mt-3">
 <!--Header -->
 <nav th:fragment="nav" class="row">
-<!--        <p sec:authorize="hasRole('USER')">Welcome <span sec:authentication="principal.username"/></p>-->
-    <p>Welcome <span th:text="${user}"/></p>
     <ul class="list-unstyled list-inline text-end">
         <li><h2><a th:href="@{/blogs}">My blog</a></h2></li>
         <li>
@@ -168,33 +161,6 @@
     </div>
     <!--    End loop blog list-->
 
-    <!--    Pagination -->
-
-<!--    <div th:if="${blogList.getTotalElements() != 0}">-->
-<!--        <ul class="pagination">-->
-<!--            <li class="page-item">-->
-<!--                <a class="page-link" th:if="${blogList.hasPrevious()}"-->
-<!--                   th:href="@{'/blogs'(page=${blogList.number -1})}">-->
-<!--                    <span>&laquo;</span>-->
-<!--                </a>-->
-<!--            </li>-->
-<!--            <th:block th:each="i:${#numbers.sequence(0,blogList.totalPages - 1)}">-->
-<!--                <li th:if="${blogList.number == i}" class="page-item active">-->
-<!--                    <a class="page-link" th:href="@{'/blogs'(page=${i})}" th:text="${i+1}"></a>-->
-<!--                </li>-->
-<!--                <li th:unless="${blogList.number == i}" class="page-item">-->
-<!--                    <a class="page-link" th:href="@{'/blogs'(page=${i})}" th:text="${i+1}"></a>-->
-<!--                </li>-->
-<!--            </th:block>-->
-
-<!--            <li class="page-item">-->
-<!--                <a class="page-link" th:if="${blogList.hasNext()}" th:href="@{'/blogs'(page=${blogList.number +1})}">-->
-<!--                    <span>&raquo;</span>-->
-<!--                </a>-->
-<!--            </li>-->
-<!--        </ul>-->
-<!--    </div>-->
-    <!--    End pagination-->
 </main>
 
 <footer th:fragment="footer">
@@ -212,13 +178,6 @@
 </footer>
 </body>
 </html>
-
-<!--<script th:inline="javascript">-->
-<!--    function delConfirm(id, name) {-->
-<!--        document.getElementById("id").value = id;-->
-<!--        document.getElementById("name").innerText = name;-->
-<!--    }-->
-<!--</script>-->
 <script>
 
 </script>

@@ -1,6 +1,5 @@
 package blog_app.config;
 
-import blog_app.entity.Category;
 import blog_app.formatter.CategoryFormatter;
 import blog_app.service.CategoryServiceImpl;
 import org.springframework.beans.BeansException;
@@ -23,13 +22,9 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
-import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.thymeleaf.spring5.SpringTemplateEngine;
 import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring5.view.ThymeleafViewResolver;
-//import org.thymeleaf.spring5.SpringTemplateEngine;
-//import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
-//import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 import org.thymeleaf.templatemode.TemplateMode;
 
 import javax.persistence.EntityManager;
