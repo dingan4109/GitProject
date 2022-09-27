@@ -1,0 +1,7 @@
+<button *ngIf="isLiked==false" class="btn btn-light" [ngClass]="{'liked':isLiked}" (click)="like()">
+  Like | <span class="like-counter">{{ likeCount }}</span>
+</button>
+<button *ngIf="isLiked==true" class="btn btn-dark" [ngClass]="{'liked':isLiked}" (click)="like()">
+  Like | <span class="like-counter">{{ likeCount }}</span>
+</button>
+

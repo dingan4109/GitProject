@@ -1,0 +1,10 @@
+.blog-hover .see-more {
+  visibility: hidden;
+}
+.blog-hover:hover{
+  box-shadow: 5px 6px 6px 2px #e9ecef;
+  transform: scale(1.1);
+}
+.blog-hover:hover .see-more {
+  visibility: visible;
+}

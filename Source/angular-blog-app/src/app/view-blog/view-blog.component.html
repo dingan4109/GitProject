@@ -1,0 +1,13 @@
+<!--View blog-->
+<div>
+  <h2>{{blog.title}}</h2>
+  <img src="{{blog.image}}" style="width: 30%;height: 30%">
+  <br><br>
+  <p style="font-style: italic">{{blog.description}}</p>
+  <br>
+  <p>{{blog.content}}</p>
+</div>
+<!--End view-->
+<!--Like button-->
+<app-like-button [blogId]="blog.id"></app-like-button>
+<!--End like-->

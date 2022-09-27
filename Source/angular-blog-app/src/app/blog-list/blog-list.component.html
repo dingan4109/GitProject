@@ -1,0 +1,13 @@
+<div class="row mt-2">
+  <div class="col-md-3 blog-hover" *ngFor="let blog of blogs">
+    <div class="container">
+      <img src="{{blog.image}}" class="img-fluid">
+    </div>
+    <div class="container pt-4 blog-container">
+      <h3>{{blog.title}}</h3>
+      <p style="font-style: italic">{{blog.description}}</p>
+      <br>
+      <p class="see-more"><a [routerLink]="['/view-blog',blog.id]">See more</a></p>
+    </div>
+  </div>
+</div>

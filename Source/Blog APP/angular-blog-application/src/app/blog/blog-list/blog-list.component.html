@@ -1,0 +1,18 @@
+<div *ngIf="blogs" class="row mt-2">
+  <div class="col-md-3 blog-hover mb-5" *ngFor="let blog of blogs| paginate: config">
+    <div class="container border border-dark rounded" style="background-color: #1E252E" [routerLink]="['/blog-view',blog.id]">
+      <img src="{{blog.image}}" class="img-fluid my-3 border border-dark rounded">
+      <h3 class="text-white">{{blog.title}}</h3>
+      <p class="text-white" style="font-style: italic">{{blog.description}}</p>
+      <br>
+      <p class="see-more"><a class="text-white" [routerLink]="['/blog-view',blog.id]">See more</a></p>
+      <p class="text-white see-more" *ngIf="blog.likeNumber > 1">{{blog.likeNumber}} likes</p>
+      <p class="text-white see-more" *ngIf="blog.likeNumber <= 1">{{blog.likeNumber}} like</p>
+    </div>
+  </div>
+</div>
+<!--Pagination-->
+<div class="d-flex justify-content-center">
+  <pagination-controls class="cus-pagination" maxSize="5" (pageChange)="pageChanged($event)"></pagination-controls>
+</div>
+<!--End pagination-->

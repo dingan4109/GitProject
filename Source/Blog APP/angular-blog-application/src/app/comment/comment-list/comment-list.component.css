@@ -1,0 +1,7 @@
+.cus-pagination ::ng-deep .ngx-pagination .current {
+  background: white;
+  color: black;
+}
+.cus-pagination ::ng-deep .ngx-pagination:not(active) {
+  color: white;
+}

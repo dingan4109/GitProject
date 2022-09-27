@@ -1,0 +1,11 @@
+<h5 class="text-white" *ngIf="config.totalItems > 1">{{config.totalItems}} comments</h5>
+<h5 class="text-white" *ngIf="config.totalItems <= 1">{{config.totalItems}}</h5>
+<div class="m-4 border-start border-2 border-white rounded p-2" *ngFor="let comment of comments | paginate: config">
+    <h5 class="text-white">{{comment.author}}</h5>
+    <p class="text-white">{{comment.content}}</p>
+  </div>
+  <!--Pagination-->
+  <div class="d-flex justify-content-center">
+    <pagination-controls class="cus-pagination" maxSize="5" (pageChange)="pageChanged($event)"></pagination-controls>
+  </div>
+  <!--End pagination-->

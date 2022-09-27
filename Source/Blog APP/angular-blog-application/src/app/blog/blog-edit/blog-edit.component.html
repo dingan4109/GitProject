@@ -1,0 +1,48 @@
+<div class="row background color">
+  <div class="col-md-8">
+    <form [formGroup]="blogForm" (ngSubmit)="editBlog()">
+        <input type="email" class="form-control" formControlName="id" hidden>
+      <div class="mb-3 col-md-4">
+        <label class="form-label">Category</label>
+        <select class="form-select" formControlName="category">
+          <option selected [value]="null">Select</option>
+          <option *ngFor="let category of categories" [value]="category.id">{{category.name}}</option>
+        </select>
+        <div>
+          <p class="text-warning" *ngIf="blogForm.get('category')?.invalid && blogForm.get('category')?.touched">Field required</p>
+        </div>
+      </div>
+      <div class="mb-3">
+        <label for="title" class="form-label">Title</label>
+        <input type="email" class="form-control" id="title" formControlName="title">
+        <div>
+          <p class="text-warning" *ngIf="blogForm.get('title').hasError('maxlength') && blogForm.get('title')?.touched">Over valid length</p>
+          <p class="text-warning" *ngIf="blogForm.get('title').hasError('required') && blogForm.get('title')?.touched">Field required</p>
+        </div>
+      </div>
+      <div class="mb-3">
+        <label for="image" class="form-label">Image</label>
+        <input type="file" class="form-control" id="image" (change)="getImageInfo($event)">
+      </div>
+      <div class="mb-3">
+        <label for="description" class="form-label">Description</label>
+        <input type="text" class="form-control" id="description" formControlName="description">
+        <div>
+          <p class="text-warning" *ngIf="blogForm.get('description').hasError('maxlength') && blogForm.get('description')?.touched">Over valid length</p>
+        </div>
+      </div>
+      <div class="mb-3">
+        <label for="content" class="form-label">Content</label>
+        <textarea type="text" class="form-control" id="content"rows="15" formControlName="content"></textarea>
+        <div>
+          <p class="text-warning" *ngIf="blogForm.get('content')?.invalid && blogForm.get('content')?.touched">Field required</p>
+        </div>
+      </div>
+      <div class="d-flex justify-content-end">
+        <button type="submit" class="btn btn-light" [disabled]="blogForm.invalid">Edit</button>
+      </div>
+    </form>
+  </div>
+  <div class="col-md-4">
+  </div>
+</div>

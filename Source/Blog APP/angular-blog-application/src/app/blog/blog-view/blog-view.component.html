@@ -1,0 +1,48 @@
+<div class="container py-5" style="background-color:#1E252E; box-shadow: 5px 6px 6px 6px #ffffff;">
+  <div class="container">
+    <div class="text-end">
+      <ul class="list-inline">
+        <li class="list-inline-item"><a [routerLink]="['/blog-edit', blog.id]" class="btn btn-outline-light">Edit</a>
+        </li>
+        <li class="list-inline-item"><a data-bs-toggle="modal" data-bs-target="#delModal" class="btn btn-outline-light">Delete</a>
+        </li>
+      </ul>
+    </div>
+    <div>
+      <h3 class="text-white">{{blog.title}}</h3>
+      <img *ngIf="blog.image != ''" src="{{blog.image}}" class="img-fluid my-3 border rounded"
+           style="width: 30%; height: 30%">
+      <p class="text-white" style="font-style: italic">{{blog.description}}</p>
+      <br>
+      <div class="text-white">{{blog.content}}</div>
+    </div>
+    <div class="text-end mt-3">
+      <span *ngIf="blog.likeNumber > 1" class="text-white">{{blog.likeNumber}} likes</span>
+      <span *ngIf="blog.likeNumber <= 1" class="text-white">{{blog.likeNumber}} like</span>
+      <a class="btn btn-outline-light mx-3" (click)="like()">Like</a>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="delModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content bg-dark text-white">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Confirm</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p>Are you so sure about deleting the memory of blog <b>{{blog.title}}</b>?</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-light" data-bs-dismiss="modal">No, I'll think again</button>
+          <button type="button" class="btn btn-outline-light" (click)="delBlog()" data-bs-dismiss="modal">Yes, I am
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--End modal-->
+<app-comment-create [blogId]="id"></app-comment-create>
+

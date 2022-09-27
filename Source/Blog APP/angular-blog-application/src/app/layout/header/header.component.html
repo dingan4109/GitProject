@@ -1,0 +1,9 @@
+<nav class="row mt-3 mb-5">
+  <h2 class="text-end"><a class="text-white" routerLink="">My blog</a></h2>
+  <ul class="list-unstyled d-flex list-inline justify-content-end mx-5">
+      <li class="mx-3" *ngFor="let category of categories"><a routerLink="" (click)="categoryId(category.id)" class="text-white">{{category.name}}</a></li>
+<!--    <li class="mx-3"><span><a class="text-white" routerLink="">Random things</a></span></li><span class="text-white">|</span>-->
+<!--    <li class="mx-3"><span><a class="text-white" routerLink="">Eat, Pray & Love</a></span></li><span class="text-white">|</span>-->
+<!--    <li class="mx-3"><span><a class="text-white" routerLink="">Life</a></span></li>-->
+  </ul>
+</nav>
