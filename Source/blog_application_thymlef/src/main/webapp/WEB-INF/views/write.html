@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="list::lib">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body class="container">
+<nav th:replace="list::nav"></nav>
+<div>
+    <form th:action="@{/save}" th:object="${blog}" th:method="post">
+        <table class="table">
+            <tr>
+                <th><lable for="title">Title</lable></th>
+                <td><input type="text" th:field="*{title}" id="title"></td>
+            </tr>
+            <tr>
+                <th><lable>Category</lable></th>
+                <td>
+                    <select th:field="*{category}">
+                        <option value="">Select</option>
+                        <option
+                                th:each="category : ${categories}"
+                                th:value="${category.categoryId}"
+                                th:text="${category.name}"></option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <th><lable for="img">Image</lable></th>
+                <td><input type="text" th:field="*{image}" id="img"></td>
+            </tr>
+            <tr>
+                <th><lable for="content">Creative space</lable></th>
+                <td>
+                    <textarea type="text" th:field="*{description}" rows="2"/>
+                    <br>
+                    <textarea type="text" th:field="*{content}" id="content" rows="10"/>
+                </td>
+            </tr>
+            <tr>
+                <th></th>
+                <td><button type="submit" class="btn btn-light">Save my blog</button></td>
+            </tr>
+        </table>
+    </form>
+</div>
+<div th:replace="list::footer"></div>
+</body>
+</html>

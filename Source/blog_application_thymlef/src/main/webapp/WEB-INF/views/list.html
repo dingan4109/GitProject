@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="lib">
+    <meta charset="UTF-8">
+    <title>Blogs...</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script>
+        // Search
+        function search() {
+            let searchByTitle = $('#searchByTitle').val();
+            $.ajax({
+                type: 'GET',
+                data: {
+                    title: searchByTitle
+                },
+                dataType: 'json',
+                url: '/api/blogs/search',
+                success:
+                    function (temp) {
+                    let blogList = temp.content;
+                        let content = '';
+                        for (let i = 0; i < blogList.length; i++) {
+                            content += `<div class="col-md-3">
+                    <div class="container">
+                        <img src="${blogList[i].image}" class="img-fluid">
+                    </div>
+                    <div class="container pt-4">
+                        <h3>${blogList[i].title}</h3>
+                        <p><a href="">See more</a></p>
+                        <br>
+                        <p>${blogList[i].description}</p>
+                    </div>
+                </div>`;
+                        }
+                        document.getElementById('blogs').innerHTML = content;
+                        // $("#blogs").html(content);
+                    }
+            });
+        }
+
+        // Load more function
+        let page = 0;
+
+       window.onload = function loadFirstPage() {
+            $.ajax({
+                type: 'GET',
+                url: `/api/blogs?page=${page}`,
+                success: function(temp) {
+                    page = temp.number;
+                }
+            })
+       }
+
+        function loadMore() {
+            page++;
+            $.ajax({
+                type: 'GET',
+                url: `/api/blogs?page=${page}`,
+                success: function(temp) {
+
+                    console.log(temp);
+                    let blogList = temp.content;
+                    console.log(blogList);
+                    let content = '';
+                    for (let i = 0; i < blogList.length; i++) {
+                        content += `<div class="col-md-3">
+                    <div class="container">
+                        <img src="${blogList[i].image}" class="img-fluid">
+                    </div>
+                    <div class="container pt-4">
+                        <h3>${blogList[i].title}</h3>
+                        <p><a href="/view/${blogList[i].id}">See more</a></p>
+                        <br>
+                        <p>${blogList[i].description}</p>
+                    </div>
+                </div>`;
+                    }
+                    $("#blogs").append(content);
+                }
+
+            })
+        }
+    </script>
+    <style>
+        body {
+            font-family: "Calibri Light";
+            font-weight: lighter;
+        }
+
+        a {
+            text-decoration: none;
+            color: black;
+        }
+    </style>
+</head>
+<body class="container mt-3">
+<!--Header -->
+<nav th:fragment="nav" class="row">
+    <ul class="list-unstyled list-inline text-end">
+        <li><h2><a th:href="@{/blogs}">My blog</a></h2></li>
+        <li>
+            <hr width="100px" class="float-end">
+        </li>
+        <li th:if="${page == 'list'}"><span><a th:href="@{/write}">Write</a></span></li>
+        <li th:if="${page == 'view'}">
+            <span><a th:href="@{/edit/__${blog.id}__}">Edit</a></span>
+            <span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                       class="bi bi-heart-half" viewBox="0 0 16 16">
+  <path d="M8 2.748v11.047c3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
+</svg></span>
+            <span><a th:href="@{/delete/__${blog.id}__}">Delete</a></span>
+            <span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                       class="bi bi-heart-half" viewBox="0 0 16 16">
+  <path d="M8 2.748v11.047c3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
+</svg></span>
+            <span><a th:href="@{/blogs}">Back to blogs</a></span>
+        </li>
+        <li th:if="${page == 'write'}"><span><a th:href="@{/blogs}">Back to blogs</a></span></li>
+        <li th:if="${page == 'edit'}"><span><a th:href="@{/view/__${blog.id}__}">Back</a></span>
+        </li>
+    </ul>
+</nav>
+<!--End header-->
+
+<main>
+    <!--    Search-->
+    <div class="col-md-9">
+
+        <input type="text" class="border rounded-pill border-2" id="searchByTitle">
+        <button class="btn" onclick="search()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                 class="bi bi-binoculars" viewBox="0 0 16 16">
+                <path d="M3 2.5A1.5 1.5 0 0 1 4.5 1h1A1.5 1.5 0 0 1 7 2.5V5h2V2.5A1.5 1.5 0 0 1 10.5 1h1A1.5 1.5 0 0 1 13 2.5v2.382a.5.5 0 0 0 .276.447l.895.447A1.5 1.5 0 0 1 15 7.118V14.5a1.5 1.5 0 0 1-1.5 1.5h-3A1.5 1.5 0 0 1 9 14.5v-3a.5.5 0 0 1 .146-.354l.854-.853V9.5a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5v.793l.854.853A.5.5 0 0 1 7 11.5v3A1.5 1.5 0 0 1 5.5 16h-3A1.5 1.5 0 0 1 1 14.5V7.118a1.5 1.5 0 0 1 .83-1.342l.894-.447A.5.5 0 0 0 3 4.882V2.5zM4.5 2a.5.5 0 0 0-.5.5V3h2v-.5a.5.5 0 0 0-.5-.5h-1zM6 4H4v.882a1.5 1.5 0 0 1-.83 1.342l-.894.447A.5.5 0 0 0 2 7.118V13h4v-1.293l-.854-.853A.5.5 0 0 1 5 10.5v-1A1.5 1.5 0 0 1 6.5 8h3A1.5 1.5 0 0 1 11 9.5v1a.5.5 0 0 1-.146.354l-.854.853V13h4V7.118a.5.5 0 0 0-.276-.447l-.895-.447A1.5 1.5 0 0 1 12 4.882V4h-2v1.5a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5V4zm4-1h2v-.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5V3zm4 11h-4v.5a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5V14zm-8 0H2v.5a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5V14z"/>
+            </svg>
+        </button>
+
+    </div>
+    <!--    End search-->
+    <br><br>
+    <!--Loop blog list-->
+    <div id="blogs" class="row mt-2">
+        <div class="col-md-3" th:each="blog : ${blogList}">
+            <div class="container">
+                <img th:src="${blog.image}" class="img-fluid">
+            </div>
+            <div class="container pt-4">
+                <h3 th:text="${blog.title}"></h3>
+                <p><a th:href="@{/view/__${blog.id}__}">See more</a></p>
+                <br>
+                <p th:text="${blog.description}"></p>
+            </div>
+        </div>
+    </div>
+    <div id="loadMore">
+        <button onclick="loadMore()">Load more</button>
+    </div>
+    <!--    End loop blog list-->
+
+</main>
+<!--Footer-->
+<footer th:fragment="footer">
+    <div class="row">
+        <div class="col-md-9 d-flex align-items-end justify-content-end">
+            <ul class="list-unstyled list-inline text-end">
+                <li><h4 class="text-end">What you looking for..?</h4></li>
+                <li th:each="category : ${categories}">
+                    <a th:href="@{/category/__${category.categoryId}__}" th:text="${category.name}"></a>
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-3"><img src="/images/tree2.png" alt="tree" class="img-fluid float-end"/></div>
+    </div>
+</footer>
+<!--End footer-->
+</body>
+</html>
+<script>
+
+</script>

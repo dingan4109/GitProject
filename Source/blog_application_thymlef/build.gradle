@@ -1,0 +1,36 @@
+plugins {
+    id 'java'
+    id 'war'
+}
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    runtime  'mysql:mysql-connector-java:8.0.13'
+
+    compileOnly group: 'javax.servlet', name: 'javax.servlet-api', version: '4.0.0'
+    implementation group: 'org.springframework', name: 'spring-web', version: '5.1.5.RELEASE'
+    implementation group: 'org.springframework', name: 'spring-webmvc', version: '5.1.5.RELEASE'
+//Thymeleaf
+    implementation group: 'org.thymeleaf', name: 'thymeleaf-spring5', version: '3.0.11.RELEASE'
+    implementation group: 'nz.net.ultraq.thymeleaf', name: 'thymeleaf-layout-dialect', version: '2.5.3'
+//ORM
+    implementation group: 'org.springframework', name: 'spring-tx', version: '5.1.5.RELEASE'
+    implementation group: 'org.springframework', name: 'spring-orm', version: '5.1.5.RELEASE'
+    implementation group: 'org.hibernate', name: 'hibernate-core', version: '5.4.1.Final'
+    implementation group: 'org.hibernate', name: 'hibernate-entitymanager', version: '5.4.10.Final'
+    implementation group: 'mysql', name: 'mysql-connector-java', version: '5.1.47'
+//JPA
+    implementation group: 'org.springframework.data', name: 'spring-data-jpa', version: '2.1.0.RELEASE'
+//AOP
+    implementation group: 'org.springframework', name: 'spring-aspects', version: '5.3.2'
+//WEBSERVICE - RESTful
+    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.12.1'
+//JQuery-AJAX
+    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.12.1'
+}

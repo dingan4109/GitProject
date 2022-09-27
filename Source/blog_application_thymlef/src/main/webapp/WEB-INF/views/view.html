@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="list::lib">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body class="container">
+<nav th:replace="list::nav"></nav>
+<div>
+    <h2 th:text="${blog.title}"></h2>
+    <p th:if="${blog.category}" th:text="${blog.category.name}" style="font-weight: bold"></p>
+    <p th:unless="${blog.category}"></p>
+    <img th:src="${blog.image}" style="width: 50%;height: 50%">
+    <br><br>
+    <p th:text="${blog.description}" style="font-style: italic"></p>
+    <br>
+    <p th:text="${blog.content}"></p>
+</div>
+<div th:replace="list::footer"></div>
+</body>
+</html>

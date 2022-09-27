@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http:www.thymeleaf.org">
+<head th:replace="categories/categoryList::categoryLib">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body class="container">
+<nav th:replace="list::nav"></nav>
+
+<a th:href="@{/categories/list}"><span>Back</span></a>
+<form th:action="@{/categories/update}" th:method="post" th:object="${category}">
+    <table class="table">
+        <input type="text" hidden th:field="*{categoryId}">
+        <tr>
+            <th><lable for="name">Name</lable></th>
+            <td><input type="text" th:field="*{name}" id="name" th:value="*{name}"></td>
+        </tr>
+        <tr>
+            <th></th>
+            <td><button type="submit" class="btn btn-light">Update category</button></td>
+        </tr>
+    </table>
+</form>
+
+<div th:replace="list::footer"></div>
+</body>
+</html>
