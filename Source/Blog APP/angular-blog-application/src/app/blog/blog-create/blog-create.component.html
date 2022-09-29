@@ -13,7 +13,7 @@
       </div>
       <div class="mb-3">
         <label for="title" class="form-label">Title</label>
-        <input type="email" class="form-control" id="title" formControlName="title">
+        <input type="text" class="form-control" id="title" formControlName="title">
         <div>
           <p class="text-warning" *ngIf="blogForm.get('title').hasError('maxlength') && blogForm.get('title')?.touched">Over valid length</p>
           <p class="text-warning" *ngIf="blogForm.get('title').hasError('required') && blogForm.get('title')?.touched">Field required</p>

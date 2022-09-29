@@ -11,6 +11,7 @@ import {NotifierModule} from "angular-notifier";
 import {AngularFireModule} from "@angular/fire";
 import {environment} from "../environments/environment";
 import {CommentModule} from "./comment/comment.module";
+import {SecurityModule} from "./security/security.module";
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import {CommentModule} from "./comment/comment.module";
       theme: 'material'
     }),
     AngularFireModule.initializeApp(environment.firebaseConfig),
-    CommentModule
+    CommentModule,
+    SecurityModule
   ],
   providers: [],
   bootstrap: [AppComponent]
