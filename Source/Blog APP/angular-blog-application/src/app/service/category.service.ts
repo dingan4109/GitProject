@@ -16,7 +16,7 @@ export class CategoryService {
     return this.http.get<Response>(`${this.API_CATEGORY}?page=${currentPage}&size=${itemsPerPage}`);
   }
   findCategoryById(id: number): Observable<Category> {
-    return this.http.get<Category>(`${this.API_CATEGORY}/${id}`);
+    return this.http.get<Category>(`${this.API_CATEGORY}/view/${id}`);
   }
   createCategory(category: Category): Observable<void>{
     return this.http.post<void>(`${this.API_CATEGORY}`, category);

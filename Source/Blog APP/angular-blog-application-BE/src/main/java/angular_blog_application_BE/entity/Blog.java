@@ -21,7 +21,7 @@ public class Blog {
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;
-    @OneToMany(mappedBy = "blog")
+    @OneToMany(mappedBy = "blog", cascade = CascadeType.REMOVE)
     @JsonBackReference
     private List<Comment> comments;
     @Column(name = "like_number")

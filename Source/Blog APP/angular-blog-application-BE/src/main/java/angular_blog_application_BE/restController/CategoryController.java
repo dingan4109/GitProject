@@ -30,7 +30,7 @@ public class CategoryController {
         }
     }
 
-    @GetMapping("{id}")
+    @GetMapping("view/{id}")
     public ResponseEntity<Category> findCategoryById(@PathVariable("id") Long id) {
         Optional<Category> category = categoryService.findById(id);
         if(category.isPresent()) {

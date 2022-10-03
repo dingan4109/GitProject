@@ -10,11 +10,10 @@ export class AuthInterceptor implements HttpInterceptor{
     if(!token) {
       return next.handle(req);
     }
-    const header = req.headers;
-    header.set('Authorization', `Bearer ${token}`);
-    header.set('Access-Control-Allow-Origin', 'http://localhost:4200')
     const req1 = req.clone({
-      headers: header
+      setHeaders: {
+        'Authorization': `Bearer ${token}`,
+      },
     });
     return next.handle(req1);
   }

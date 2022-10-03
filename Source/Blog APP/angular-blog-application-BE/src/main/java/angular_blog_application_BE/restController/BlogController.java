@@ -15,19 +15,19 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.Optional;
 
+@CrossOrigin("*")
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("blogs")
 public class BlogController {
     @Autowired
     BlogService blogService;
 
     @GetMapping
-    public ResponseEntity<Page<Blog>> findAllBlog(@PageableDefault(value = 5, sort = "id", direction = Sort.Direction.ASC)Pageable pageable) {
+    public ResponseEntity<Page<Blog>> findAllBlog(@PageableDefault(value = 5, sort = "id", direction = Sort.Direction.ASC) Pageable pageable) {
         Page<Blog> blogs = blogService.findAll(pageable);
-        if(blogs.hasContent()) {
+        if (blogs.hasContent()) {
             return new ResponseEntity<>(blogs, HttpStatus.OK);
-        }else {
+        } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
@@ -35,18 +35,18 @@ public class BlogController {
     @GetMapping("view/{id}")
     public ResponseEntity<Blog> findBlogById(@PathVariable("id") Long id) {
         Optional<Blog> blog = blogService.findById(id);
-        if(blog.isPresent()) {
+        if (blog.isPresent()) {
             return new ResponseEntity<>(blog.get(), HttpStatus.OK);
-        }else {
+        } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 
     @PostMapping("create")
     public ResponseEntity<?> createBlog(@Valid @RequestBody Blog blog, BindingResult bindingResult) {
-        if(bindingResult.hasErrors()) {
+        if (bindingResult.hasErrors()) {
             return new ResponseEntity<>(HttpStatus.PRECONDITION_FAILED);
-        }else {
+        } else {
             blogService.save(blog);
             return new ResponseEntity<>(HttpStatus.CREATED);
         }
@@ -55,14 +55,14 @@ public class BlogController {
     @PatchMapping("update/{id}")
     public ResponseEntity<?> updateBlog(@PathVariable("id") Long id, @Valid @RequestBody Blog updateBlog, BindingResult bindingResult) {
         Optional<Blog> blog = blogService.findById(id);
-        if(blog.isPresent()) {
-            if(bindingResult.hasErrors()) {
+        if (blog.isPresent()) {
+            if (bindingResult.hasErrors()) {
                 return new ResponseEntity<>(HttpStatus.PRECONDITION_FAILED);
-            }else {
+            } else {
                 blogService.save(updateBlog);
                 return new ResponseEntity<>(HttpStatus.OK);
             }
-        }else {
+        } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
@@ -70,10 +70,10 @@ public class BlogController {
     @DeleteMapping("delete/{id}")
     public ResponseEntity<?> deleteBlog(@PathVariable("id") Long id) {
         Optional<Blog> blog = blogService.findById(id);
-        if(blog.isPresent()) {
+        if (blog.isPresent()) {
             blogService.deleteById(id);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }else {
+        } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
@@ -81,10 +81,10 @@ public class BlogController {
     @PatchMapping("like/{id}")
     public ResponseEntity<?> increaseLike(@PathVariable("id") Long id, @RequestBody Blog blog) {
         Optional<Blog> foundBlog = blogService.findById(id);
-        if(foundBlog.isPresent()) {
+        if (foundBlog.isPresent()) {
             blogService.increaseLike(id, blog.getLikeNumber());
             return new ResponseEntity<>(HttpStatus.OK);
-        }else {
+        } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
