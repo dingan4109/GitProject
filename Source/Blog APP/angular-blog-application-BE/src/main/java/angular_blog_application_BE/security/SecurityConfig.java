@@ -14,6 +14,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
@@ -44,11 +45,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable();
 
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-        http.authorizeRequests().antMatchers("/login","/blogs**","/blogs/**","/categories**","/categories/*","/comments/search**").permitAll();
-        http.authorizeRequests().antMatchers("/blogs/create**","/blogs/update/**", "/blogs/delete/**").hasAnyAuthority("ROLE_ADMIN");
+        http.authorizeRequests().antMatchers("/login","/blogs","/blogs/view/*","/categories","/comments/search").permitAll();
+        http.authorizeRequests().antMatchers("/blogs/create","/blogs/update/*", "/blogs/delete/*").hasAnyAuthority("ROLE_ADMIN");
         http.authorizeRequests().anyRequest().authenticated();
         http.addFilter(customAuthenticationFilter);
         http.addFilterBefore(new CustomAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
+        http.logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"));
 //        http
 //                .authorizeRequests().antMatchers("/blogs/update/**", "/blogs/create", "/blogs/delete/**").hasRole("ADMIN")
 //                .and()

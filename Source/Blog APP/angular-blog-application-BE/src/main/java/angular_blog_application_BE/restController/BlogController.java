@@ -16,7 +16,7 @@ import javax.validation.Valid;
 import java.util.Optional;
 
 @RestController
-@CrossOrigin("*")
+@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("blogs")
 public class BlogController {
     @Autowired
@@ -32,7 +32,7 @@ public class BlogController {
         }
     }
 
-    @GetMapping("{id}")
+    @GetMapping("view/{id}")
     public ResponseEntity<Blog> findBlogById(@PathVariable("id") Long id) {
         Optional<Blog> blog = blogService.findById(id);
         if(blog.isPresent()) {

@@ -29,7 +29,9 @@ export class BlogViewComponent implements OnInit {
   }
 
   delBlog() {
-    this.storage.storage.refFromURL(this.blog.image).delete();
+    if(this.blog.image) {
+      this.storage.storage.refFromURL(this.blog.image).delete();
+    }
     this.blogService.deleteBlog(this.id).subscribe(
       () => {},
       () => {},

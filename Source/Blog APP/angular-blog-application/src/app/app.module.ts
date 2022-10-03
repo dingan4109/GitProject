@@ -6,12 +6,13 @@ import { AppComponent } from './app.component';
 import {BlogModule} from "./blog/blog.module";
 import {CategoryModule} from "./category/category.module";
 import {LayoutModule} from "./layout/layout.module";
-import {HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {NotifierModule} from "angular-notifier";
 import {AngularFireModule} from "@angular/fire";
 import {environment} from "../environments/environment";
 import {CommentModule} from "./comment/comment.module";
 import {SecurityModule} from "./security/security.module";
+import {AuthInterceptor} from "./security/interceptors/auth-interceptor";
 
 @NgModule({
   declarations: [
@@ -31,7 +32,9 @@ import {SecurityModule} from "./security/security.module";
     CommentModule,
     SecurityModule
   ],
-  providers: [],
+  providers: [
+    {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

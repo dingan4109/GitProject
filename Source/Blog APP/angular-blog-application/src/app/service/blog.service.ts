@@ -17,7 +17,7 @@ export class BlogService {
     return this.http.get<Response>(`${this.API_BLOG}?page=${currentPage}&size=${itemsPerPage}`);
   }
   findBlogById(id: number): Observable<Blog> {
-    return this.http.get<Blog>(`${this.API_BLOG}/${id}`);
+    return this.http.get<Blog>(`${this.API_BLOG}/view/${id}`);
   }
   createBlog(blog: Blog): Observable<void>{
     return this.http.post<void>(`${this.API_BLOG}/create`, blog);

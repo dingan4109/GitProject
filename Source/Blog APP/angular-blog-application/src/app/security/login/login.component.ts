@@ -10,7 +10,7 @@ import {AuthService} from "../../service/auth.service";
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private authService: AuthService) { }
+  constructor(private fb: FormBuilder, private authService: AuthService) {}
 
   ngOnInit(): void {
     this.loginForm = this.fb.group({
@@ -21,8 +21,13 @@ export class LoginComponent implements OnInit {
 
   submitLogin() {
     this.authService.login(this.loginForm.value).subscribe(data => {
-      console.log(data)
+      console.log(data);
+      window.localStorage.setItem("token", data.access_token);
     })
 
+  }
+
+  logout() {
+    window.localStorage.clear();
   }
 }
