@@ -26,7 +26,7 @@ export class BlogCreateComponent implements OnInit {
       image: '',
       content: ['', [Validators.required]],
       category: ['', [Validators.required]],
-      likeNumber: ''
+      likeNumber: 0
     })
   }
 
@@ -44,7 +44,7 @@ export class BlogCreateComponent implements OnInit {
       this.storage.upload(imgName, this.uploadedImage).snapshotChanges().pipe(
         finalize(() => {
           fileRef.getDownloadURL().subscribe(url => {
-            this.blogForm.patchValue({image: url, likeNumber: 0});
+            this.blogForm.patchValue({image: url});
 
             //Set category
             let newBlog = this.blogForm.value;

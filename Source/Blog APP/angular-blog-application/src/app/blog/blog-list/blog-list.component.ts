@@ -37,4 +37,9 @@ export class BlogListComponent implements OnInit {
    getBlogsByCategory() {
     this.blogService.getBlogsByCategory().subscribe(blogs => this.blogs = blogs);
   }
+
+  out() {
+    window.localStorage.clear();
+    window.sessionStorage.clear();
+  }
 }

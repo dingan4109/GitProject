@@ -65,7 +65,9 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
         tokens.put("access_token", access_token);
         tokens.put("refresh_token", refresh_token);
         tokens.put("roles", user.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList()).toString());
+        tokens.put("username",user.getUsername());
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+        response.setHeader("Access-Control-Allow-Origin","http://localhost:4200");
         new ObjectMapper().writeValue(response.getOutputStream(), tokens);
     }
 }

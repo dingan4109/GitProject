@@ -24,10 +24,11 @@ export class AuthService {
 
 
   login(obj): Observable<any> {
-    console.log("login")
     let loginObject = new URLSearchParams();
     loginObject.set("username", obj.username);
     loginObject.set("password", obj.password);
     return this.http.post(`${this.AUTH_API}`,loginObject.toString(),this.httpOptions)
   }
+
 }
+

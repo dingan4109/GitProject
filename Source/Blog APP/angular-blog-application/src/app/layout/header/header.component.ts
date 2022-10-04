@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {BlogService} from "../../service/blog.service";
 import {CategoryService} from "../../service/category.service";
 import {Category} from "../../model/category";
-import {BlogListComponent} from "../../blog/blog-list/blog-list.component";
+import {TokenService} from "../../service/token.service";
 
 @Component({
   selector: 'app-header',
@@ -11,10 +11,8 @@ import {BlogListComponent} from "../../blog/blog-list/blog-list.component";
 })
 export class HeaderComponent implements OnInit {
   categories: Category[] = [];
-  currentPage: 0;
-  itemsPerPage: 5;
 
-  constructor(private blogService: BlogService, private categoryService: CategoryService) { }
+  constructor(private blogService: BlogService, private categoryService: CategoryService, private tokenService: TokenService) { }
 
   ngOnInit(): void {
     this.getAllCategory();

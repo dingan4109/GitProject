@@ -8,11 +8,15 @@
       <label for="password" class="form-label">Password</label>
       <input type="password" class="form-control" id="password" formControlName="password">
     </div>
+    <div class="mb-3">
+      <input type="checkbox" class="form-check-input" id="remember" formControlName="rememberMe">
+      <label class="form-check-label" for="remember">Remember me</label>
+    </div>
     <div class="d-flex justify-content-end">
       <button type="submit" class="btn btn-light">Login</button>
+      <button type="button" class="btn btn-light mx-3" (click)="logout()">Logout</button>
     </div>
   </form>
-  <button type="button" (click)="logout()" class="btn btn-light">OUT</button>
 </div>
 <div class="col-md-4">
 </div>
