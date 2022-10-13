@@ -1,7 +1,6 @@
-import { Injectable } from '@angular/core';
+import {Injectable, Output} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {Observable} from "rxjs";
-import {Blog} from "../model/blog";
+import {Observable, Subject} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +9,8 @@ export class AuthService {
   AUTH_API = 'http://localhost:8080/login';
   httpOptions: any;
   isLoggedIn: boolean;
+  roles: string[];
+  username = new Subject(); //Alternate method to Emitting data across Components. Subject() is doing both Emitting data and Subscribing it in another component. So its the best way to compare with Emitting using Output.
 
   constructor(private http: HttpClient) {
     this.httpOptions = {

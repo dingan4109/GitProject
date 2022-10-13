@@ -9,6 +9,10 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {NgxPaginationModule} from "ngx-pagination";
 import { BlogViewComponent } from './blog-view/blog-view.component';
 import {CommentModule} from "../comment/comment.module";
+import {ErrorModule} from "../error/error.module";
+import {AdminCheck} from "../security/admin-check";
+import {LoginCheck} from "../security/login-check";
+import {SecurityModule} from "../security/security.module";
 
 
 @NgModule({
@@ -19,7 +23,9 @@ import {CommentModule} from "../comment/comment.module";
     FormsModule,
     ReactiveFormsModule,
     NgxPaginationModule,
-    CommentModule
-  ]
+    CommentModule,
+    ErrorModule
+  ],
+  providers: [AdminCheck, LoginCheck]
 })
 export class BlogModule { }

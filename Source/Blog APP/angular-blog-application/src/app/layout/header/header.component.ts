@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {BlogService} from "../../service/blog.service";
 import {CategoryService} from "../../service/category.service";
 import {Category} from "../../model/category";
+import {AuthService} from "../../service/auth.service";
 import {TokenService} from "../../service/token.service";
 
 @Component({
@@ -11,8 +12,11 @@ import {TokenService} from "../../service/token.service";
 })
 export class HeaderComponent implements OnInit {
   categories: Category[] = [];
+  username = null;
 
-  constructor(private blogService: BlogService, private categoryService: CategoryService, private tokenService: TokenService) { }
+  constructor(private blogService: BlogService, private categoryService: CategoryService, private authService: AuthService, private tokenService : TokenService) {
+    this.authService.username.subscribe(name => this.username = name)
+  }
 
   ngOnInit(): void {
     this.getAllCategory();
@@ -24,5 +28,9 @@ export class HeaderComponent implements OnInit {
 
   categoryId(categoryId: number) {
     this.blogService.categoryId = categoryId;
+  }
+
+  logout() {
+    this.tokenService.signOut();
   }
 }

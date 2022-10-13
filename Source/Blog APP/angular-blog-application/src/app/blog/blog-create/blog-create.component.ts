@@ -6,6 +6,8 @@ import {Category} from "../../model/category";
 import {CategoryService} from "../../service/category.service";
 import {AngularFireStorage} from "@angular/fire/storage";
 import {finalize} from "rxjs/operators";
+import {HttpErrorResponse} from "@angular/common/http";
+import {NotifierService} from "angular-notifier";
 
 @Component({
   selector: 'app-blog-create',
@@ -18,8 +20,10 @@ export class BlogCreateComponent implements OnInit {
   currentPage: 0;
   itemsPerPage: 5;
   uploadedImage = null;
+  notifier: NotifierService;
 
-  constructor(private blogService: BlogService, private fb: FormBuilder, private router: Router, private categoryService: CategoryService, private storage: AngularFireStorage) {
+  constructor(private blogService: BlogService, private fb: FormBuilder, private router: Router, private categoryService: CategoryService, private storage: AngularFireStorage, private notifierService: NotifierService) {
+    this.notifier = notifierService;
     this.blogForm = this.fb.group({
       title: ['', [Validators.maxLength(80), Validators.required]],
       description: ['', [Validators.maxLength(130)]],
@@ -75,7 +79,14 @@ export class BlogCreateComponent implements OnInit {
         this.blogService.createBlog(newBlog).subscribe(
           () => {
           },
-          () => {
+          (error) => {
+            if(error.status == 403) {
+              if(window.confirm("This function required login")) {
+                this.router.navigateByUrl("/login")
+              }else {
+                this.router.navigateByUrl('/blog-list');
+              }
+            }
           },
           () => {
             this.router.navigateByUrl('/blog-list')

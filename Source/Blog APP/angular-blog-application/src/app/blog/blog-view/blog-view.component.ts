@@ -4,6 +4,7 @@ import {BlogService} from "../../service/blog.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {NotifierService} from "angular-notifier";
 import {AngularFireStorage} from "@angular/fire/storage";
+import {AuthService} from "../../service/auth.service";
 
 @Component({
   selector: 'app-blog-view',
@@ -14,9 +15,11 @@ export class BlogViewComponent implements OnInit {
   blog: Blog = {};
   id: number;
   notifier: NotifierService;
+  roles: string[];
 
-  constructor(private blogService: BlogService, private activatedRoute: ActivatedRoute, private router: Router, private notifierService: NotifierService, private storage: AngularFireStorage) {
+  constructor(private blogService: BlogService, private activatedRoute: ActivatedRoute, private router: Router, private notifierService: NotifierService, private storage: AngularFireStorage, private authService: AuthService) {
     this.notifier = notifierService;
+    this.roles = this.authService.roles;
   }
 
   ngOnInit(): void {
@@ -43,11 +46,20 @@ export class BlogViewComponent implements OnInit {
   }
 
   like() {
-    this.blog.likeNumber++;
-    this.blogService.increaseLike(this.id, this.blog).subscribe(
-      () => {},
-      () => {},
-      () => {},
-    )
+    if(this.authService.roles !== null) {
+      this.blog.likeNumber++;
+      this.blogService.increaseLike(this.id, this.blog).subscribe(
+        () => {},
+        () => {},
+        () => {},
+      )
+    }else {
+      if(window.confirm("Please log in to like the post!")) {
+        this.router.navigateByUrl("/login");
+      }else {
+        this.router.navigateByUrl("/blog-view/" + this.id);
+      }
+    }
+
   }
 }

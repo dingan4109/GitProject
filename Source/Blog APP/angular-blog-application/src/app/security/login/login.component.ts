@@ -24,26 +24,28 @@ export class LoginComponent implements OnInit {
   }
 
   submitLogin() {
+    if (this.authService.isLoggedIn == true) {
+      this.logout();
+    }
     this.authService.login(this.loginForm.value).subscribe(data => {
         if (this.loginForm.value.rememberMe) {
           this.tokenService.saveTokenLocal(data.access_token);
           this.tokenService.saveAccountLocal(data);
-          this.tokenService.saveUsernameLocal(data.username);
         } else {
           this.tokenService.saveTokenSession(data.access_token);
           this.tokenService.saveAccountSession(data);
-          this.tokenService.saveUsernameSession(data.username);
         }
 
         this.authService.isLoggedIn = true;
+        this.authService.roles = data.roles;
+        this.authService.username.next(data.username); //next() method is alternate to emit()
       },
       () => {
       },
       () => {
-      this.router.navigateByUrl("");
+        this.router.navigateByUrl("");
       },
     )
-
   }
 
   logout() {

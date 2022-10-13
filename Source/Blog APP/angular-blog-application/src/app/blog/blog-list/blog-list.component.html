@@ -1,15 +1,13 @@
 <!--Test area-->
-<div>
+<div *ngIf="roles!= null && roles.includes('ROLE_ADMIN')">
   <button class="btn btn-light" routerLink="/blog-create">Create</button>
-  <button class="btn btn-light" routerLink="/login">Login</button>
-  <button class="btn btn-light" (click)="out()">Logout</button>
 </div>
 <!--End test area-->
 
 <!--Blogs-->
 <div *ngIf="blogs" class="row mt-2">
-  <div class="col-md-3 blog-hover mb-5" *ngFor="let blog of blogs| paginate: config">
-    <div class="container border border-dark rounded" style="background-color: #1E252E" [routerLink]="['/blog-view',blog.id]">
+  <div class="col-md-3 mb-5" *ngFor="let blog of blogs| paginate: config">
+    <div class="container border border-dark rounded blog-hover" style="background-color: #1E252E" [routerLink]="['/blog-view',blog.id]">
       <img src="{{blog.image}}" class="img-fluid my-3 border border-dark rounded">
       <h3 class="text-white">{{blog.title}}</h3>
       <p class="text-white" style="font-style: italic">{{blog.description}}</p>

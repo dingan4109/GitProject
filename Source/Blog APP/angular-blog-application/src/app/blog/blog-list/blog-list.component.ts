@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {Blog} from "../../model/blog";
 import {BlogService} from "../../service/blog.service";
 import {Router} from "@angular/router";
+import {TokenService} from "../../service/token.service";
+import {AuthService} from "../../service/auth.service";
 
 @Component({
   selector: 'app-blog-list',
@@ -15,11 +17,13 @@ export class BlogListComponent implements OnInit {
     currentPage: 1,
     totalItems: 0
   }
+  roles: string[];
 
-  constructor(private blogService: BlogService, private router: Router) { }
+  constructor(private blogService: BlogService, private router: Router, private tokenService: TokenService, private authService: AuthService) { }
 
   ngOnInit(): void {
     this.getAllBlogs();
+    this.roles = this.authService.roles;
  }
 
   private getAllBlogs() {
@@ -39,7 +43,7 @@ export class BlogListComponent implements OnInit {
   }
 
   out() {
-    window.localStorage.clear();
-    window.sessionStorage.clear();
+    this.tokenService.signOut();
+
   }
 }

@@ -85,7 +85,7 @@ export class BlogEditComponent implements OnInit {
         newBlog.category = category;
 
         //Create new blog
-        this.blogService.createBlog(newBlog).subscribe(
+        this.blogService.updateBlog(this.id,newBlog).subscribe(
           () => {
           },
           () => {

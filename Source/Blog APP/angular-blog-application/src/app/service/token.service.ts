@@ -1,16 +1,19 @@
 import { Injectable } from '@angular/core';
+import {AuthService} from "./auth.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class TokenService {
-  interceptorToken: string;
 
-  constructor() { }
+  constructor(private authService: AuthService) { }
 
   signOut() {
     window.localStorage.clear();
     window.sessionStorage.clear();
+    this.authService.isLoggedIn = false;
+    this.authService.roles = null;
+    this.authService.username.next(null);
   }
 
   saveTokenLocal(token: string) {
@@ -52,26 +55,4 @@ export class TokenService {
     }
   }
 
-  setInterceptorToken(token: string) {
-    this.interceptorToken = token;
-  }
-
-  saveUsernameLocal(username) {
-    window.localStorage.removeItem("username");
-    window.localStorage.setItem("username", username);
-  }
-
-  saveUsernameSession(username) {
-    window.sessionStorage.removeItem("username");
-    window.sessionStorage.setItem("username",username);
-  }
-
-  getUsername() {
-    let username = localStorage.getItem("username");
-    if(username !== null) {
-      return username;
-    }else {
-      return sessionStorage.getItem("username");
-    }
-  }
 }

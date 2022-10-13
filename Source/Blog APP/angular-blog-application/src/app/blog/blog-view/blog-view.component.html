@@ -1,6 +1,6 @@
 <div class="container py-5" style="background-color:#1E252E; box-shadow: 5px 6px 6px 6px #ffffff;">
   <div class="container">
-    <div class="text-end">
+    <div *ngIf="roles!= null && roles.includes('ROLE_ADMIN')" class="text-end">
       <ul class="list-inline">
         <li class="list-inline-item"><a [routerLink]="['/blog-edit', blog.id]" class="btn btn-outline-light">Edit</a>
         </li>
