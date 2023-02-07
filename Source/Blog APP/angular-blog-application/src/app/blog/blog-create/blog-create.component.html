@@ -22,6 +22,7 @@
       <div class="mb-3">
         <label for="image" class="form-label">Image</label>
         <input type="file" class="form-control" id="image" (change)="getImageInfo($event)">
+        <img *ngIf="url!== null" [src]="url" alt="review photo" style="width: 20%; height: 20%">
         <p class="text-warning" *ngIf="blogForm.get('image')?.invalid && blogForm.get('image')?.touched">Field required</p>
       </div>
       <div class="mb-3">

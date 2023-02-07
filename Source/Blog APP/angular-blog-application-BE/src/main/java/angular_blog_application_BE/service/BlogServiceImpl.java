@@ -38,4 +38,9 @@ public class BlogServiceImpl implements BlogService{
     public void increaseLike(Long id, Long likeNumber) {
         blogRepo.increaseLike(id, likeNumber);
     }
+
+    @Override
+    public Page<Blog> findBlogByCategory(Long categoryId, Pageable pageable) {
+        return this.blogRepo.findBlogByCategory(categoryId, pageable);
+    }
 }

@@ -21,6 +21,7 @@ export class BlogCreateComponent implements OnInit {
   itemsPerPage: 5;
   uploadedImage = null;
   notifier: NotifierService;
+  url: string = null;
 
   constructor(private blogService: BlogService, private fb: FormBuilder, private router: Router, private categoryService: CategoryService, private storage: AngularFireStorage, private notifierService: NotifierService) {
     this.notifier = notifierService;
@@ -87,6 +88,9 @@ export class BlogCreateComponent implements OnInit {
                 this.router.navigateByUrl('/blog-list');
               }
             }
+            if(error.status == 400) {
+              console.log(error);
+            }
           },
           () => {
             this.router.navigateByUrl('/blog-list')
@@ -106,5 +110,12 @@ export class BlogCreateComponent implements OnInit {
 
   getImageInfo(event: any) {
     this.uploadedImage = event.target.files[0];
+    if(this.uploadedImage) {
+      const reader = new FileReader();
+      reader.readAsDataURL(this.uploadedImage);
+      reader.onload = (e: any) => {
+        this.url = e.target.result;
+      }
+    }
   }
 }

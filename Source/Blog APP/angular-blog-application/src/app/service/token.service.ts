@@ -6,14 +6,11 @@ import {AuthService} from "./auth.service";
 })
 export class TokenService {
 
-  constructor(private authService: AuthService) { }
+  constructor() { }
 
   signOut() {
     window.localStorage.clear();
     window.sessionStorage.clear();
-    this.authService.isLoggedIn = false;
-    this.authService.roles = null;
-    this.authService.username.next(null);
   }
 
   saveTokenLocal(token: string) {
@@ -38,20 +35,39 @@ export class TokenService {
 
   saveAccountLocal(account) {
     window.localStorage.removeItem("account");
-    window.localStorage.setItem("account", account);
+    window.localStorage.setItem("account", JSON.stringify(account));
+  }
+
+  loginStatusLocal(status: string) {
+    window.localStorage.removeItem("isLoggedIn");
+    window.localStorage.setItem("isLoggedIn", status);
   }
 
   saveAccountSession(account) {
     window.sessionStorage.removeItem("account");
-    window.sessionStorage.setItem("account",account);
+    window.sessionStorage.setItem("account",JSON.stringify(account));
+  }
+
+  loginStatusSession(status: string) {
+    window.sessionStorage.removeItem("isLoggedIn");
+    window.sessionStorage.setItem("isLoggedIn", status);
   }
 
   getAccount() {
     let account = localStorage.getItem("account");
     if(account !== null) {
-      return account;
+      return JSON.parse(account);
     }else {
-      return sessionStorage.getItem("account");
+      return JSON.parse(sessionStorage.getItem("account"));
+    }
+  }
+
+  getLoginStatus(): string {
+    let status = localStorage.getItem("isLoggedIn");
+    if(status !== null) {
+      return status;
+    }else {
+      return sessionStorage.getItem("isLoggedIn");
     }
   }
 

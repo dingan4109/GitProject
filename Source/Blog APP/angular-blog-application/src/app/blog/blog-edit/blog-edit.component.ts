@@ -6,6 +6,7 @@ import {Category} from "../../model/category";
 import {CategoryService} from "../../service/category.service";
 import {finalize} from "rxjs/operators";
 import {AngularFireStorage} from "@angular/fire/storage";
+import {Blog} from "../../model/blog";
 
 @Component({
   selector: 'app-blog-edit',
@@ -16,7 +17,8 @@ export class BlogEditComponent implements OnInit {
   blogForm: FormGroup;
   categories: Category[] = [];
   id: number;
-  oldImgLink: string;
+  blog: Blog;
+  oldImgLink : string;
   currentPage = 0;
   itemsPerPage = 5;
   uploadedImage = null;
@@ -28,6 +30,7 @@ export class BlogEditComponent implements OnInit {
     this.activatedRoute.paramMap.subscribe(paramMap => {
       this.id = Number(paramMap.get('id'));
       this.blogService.findBlogById(this.id).subscribe(blog => {
+        this.blog = blog;
         this.oldImgLink = blog.image;
         this.blogForm = this.fb.group({
           id: [this.id,[Validators.required]],
@@ -57,7 +60,9 @@ export class BlogEditComponent implements OnInit {
             this.blogForm.patchValue({image: url});
 
             //Delete old image from firebase
-            this.storage.storage.refFromURL(this.oldImgLink).delete();
+            if(this.blog.image !== '') {
+              this.storage.storage.refFromURL(this.blog.image).delete();
+            }
 
             //Set category
             let updateBlog = this.blogForm.value;
@@ -104,5 +109,12 @@ export class BlogEditComponent implements OnInit {
 
   getImageInfo(event: any) {
     this.uploadedImage = event.target.files[0];
+    if(this.uploadedImage) {
+      const reader = new FileReader();
+      reader.readAsDataURL(this.uploadedImage);
+      reader.onload = (e: any) => {
+        this.oldImgLink = e.target.result;
+      }
+    }
   }
 }

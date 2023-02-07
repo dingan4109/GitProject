@@ -1,16 +1,17 @@
-<nav class="row mt-3 mb-5">
-  <div *ngIf="username !== null">
-    <p class="text-white">Welcome {{username}}</p>
-    <button class="btn btn-light" (click)="logout()">Log out</button>
+<nav class="navbar">
+  <div class="navbar-brand">
+    <div *ngIf="username !== null">
+      <span class="text-white">Welcome {{username}}</span>
+      <small><a class="text-white mx-3" (click)="logout()"> >> Log out</a></small>
+    </div>
+    <div *ngIf="username === null">
+      <small><a class="text-white mx-3" routerLink="/login"> >> Log in</a></small>
+    </div>
   </div>
-  <div *ngIf="username == null">
-    <button class="btn btn-light" routerLink="/login">Login</button>
+  <div class="form-inline">
+    <h2 class="text-end px-5"><a class="text-white" routerLink="">My blog</a></h2>
+    <ul class="list-unstyled d-flex list-inline justify-content-end mx-4">
+      <li class="mx-3" *ngFor="let category of categories"><a [routerLink]="['blog-list',category.id]" class="text-white">{{category.name}}</a></li>
+    </ul>
   </div>
-  <h2 class="text-end"><a class="text-white" routerLink="">My blog</a></h2>
-  <ul class="list-unstyled d-flex list-inline justify-content-end mx-5">
-      <li class="mx-3" *ngFor="let category of categories"><a routerLink="" (click)="categoryId(category.id)" class="text-white">{{category.name}}</a></li>
-<!--    <li class="mx-3"><span><a class="text-white" routerLink="">Random things</a></span></li><span class="text-white">|</span>-->
-<!--    <li class="mx-3"><span><a class="text-white" routerLink="">Eat, Pray & Love</a></span></li><span class="text-white">|</span>-->
-<!--    <li class="mx-3"><span><a class="text-white" routerLink="">Life</a></span></li>-->
-  </ul>
 </nav>

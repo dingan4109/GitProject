@@ -4,6 +4,7 @@ import {AuthService} from "../../service/auth.service";
 import {TokenService} from "../../service/token.service";
 import {Router} from "@angular/router";
 
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -24,21 +25,20 @@ export class LoginComponent implements OnInit {
   }
 
   submitLogin() {
-    if (this.authService.isLoggedIn == true) {
+    if (this.tokenService.getAccount()!== null) {
       this.logout();
     }
     this.authService.login(this.loginForm.value).subscribe(data => {
         if (this.loginForm.value.rememberMe) {
           this.tokenService.saveTokenLocal(data.access_token);
           this.tokenService.saveAccountLocal(data);
+          this.tokenService.loginStatusLocal("true");
         } else {
           this.tokenService.saveTokenSession(data.access_token);
           this.tokenService.saveAccountSession(data);
+          this.tokenService.loginStatusSession("true");
         }
-
-        this.authService.isLoggedIn = true;
-        this.authService.roles = data.roles;
-        this.authService.username.next(data.username); //next() method is alternate to emit()
+        window.location.assign('');
       },
       () => {
       },

@@ -2,3 +2,7 @@ a {
   text-decoration: none;
   color: black;
 }
+/* already declare in index.html file
+a:hover {*/
+/*  cursor: context-menu;*/
+/*}*/

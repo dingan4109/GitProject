@@ -1,9 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {Blog} from "../../model/blog";
 import {BlogService} from "../../service/blog.service";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {TokenService} from "../../service/token.service";
-import {AuthService} from "../../service/auth.service";
 
 @Component({
   selector: 'app-blog-list',
@@ -18,16 +17,30 @@ export class BlogListComponent implements OnInit {
     totalItems: 0
   }
   roles: string[];
+  categoryId: number;
 
-  constructor(private blogService: BlogService, private router: Router, private tokenService: TokenService, private authService: AuthService) { }
+  constructor(private blogService: BlogService, private router: Router, private tokenService: TokenService, private activatedRoute: ActivatedRoute) {
+  }
 
   ngOnInit(): void {
-    this.getAllBlogs();
-    this.roles = this.authService.roles;
- }
+    this.activatedRoute.paramMap.subscribe(paramMap => {
+      this.categoryId = Number(paramMap.get('id'));
+      if (this.categoryId) {
+        console.log("category");
+        this.getBlogsByCategory()
+      } else {
+        this.getAllBlogs();
+      }
+      if (this.tokenService.getAccount()) {
+        this.roles = this.tokenService.getAccount().roles;
+      } else {
+        this.roles = null;
+      }
+    })
+  }
 
   private getAllBlogs() {
-    this.blogService.getAllBlogs(this.config.currentPage-1, this.config.itemsPerPage).subscribe(blogs => {
+    this.blogService.getAllBlogs(this.config.currentPage - 1, this.config.itemsPerPage).subscribe(blogs => {
       this.blogs = blogs.content;
       this.config.totalItems = blogs.totalElements;
     })
@@ -38,12 +51,18 @@ export class BlogListComponent implements OnInit {
     this.ngOnInit();
   }
 
-   getBlogsByCategory() {
-    this.blogService.getBlogsByCategory().subscribe(blogs => this.blogs = blogs);
+  getBlogsByCategory() {
+    this.blogService.findBlogsByCategory(this.categoryId, this.config.currentPage - 1, this.config.itemsPerPage).subscribe((blogs) => {
+        this.blogs = blogs.content;
+        this.config.totalItems = blogs.totalElements;
+      },
+      (error) => {
+        if (error.status === 404) {
+          this.router.navigateByUrl('error');
+        }
+      },
+      () => {}
+    );
   }
 
-  out() {
-    this.tokenService.signOut();
-
-  }
 }

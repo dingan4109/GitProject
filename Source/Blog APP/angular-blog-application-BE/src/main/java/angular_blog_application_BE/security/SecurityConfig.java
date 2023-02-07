@@ -35,10 +35,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService).passwordEncoder(encoder());
+        System.out.println(1);
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        System.out.println(2);
         CustomAuthenticationFilter customAuthenticationFilter = new CustomAuthenticationFilter(authenticationManagerBean());
         //customAuthenticationFilter.setFilterProcessesUrl("/security/login");
 
@@ -46,7 +48,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.cors();
 
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-        http.authorizeRequests().antMatchers("/login","/blogs","/blogs/view/*","/categories","/categories/view/*","/comments/search").permitAll();
+        http.authorizeRequests().antMatchers("/login","/blogs","/blogs/findBlogByCategory/*","/blogs/view/*","/categories","/categories/view/*","/comments/search").permitAll();
         http.authorizeRequests().antMatchers("/comments/create","/comments/update/*", "/comments/delete/*","/blogs/like/*").hasAnyAuthority("ROLE_USER","ROLE_ADMIN");
         http.authorizeRequests().antMatchers("/blogs/create","/blogs/update/*", "/blogs/delete/*").hasAnyAuthority("ROLE_ADMIN");
         http.authorizeRequests().anyRequest().authenticated();

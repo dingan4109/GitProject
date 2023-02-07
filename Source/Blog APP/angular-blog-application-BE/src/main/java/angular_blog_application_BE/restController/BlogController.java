@@ -10,9 +10,12 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 @CrossOrigin("*")
@@ -42,10 +45,28 @@ public class BlogController {
         }
     }
 
+    @GetMapping("findBlogByCategory/{categoryId}")
+    public ResponseEntity<Page<Blog>> findBlogByCategory(@PageableDefault(value = 5, sort = "id", direction = Sort.Direction.ASC) Pageable pageable, @PathVariable("categoryId") Long categoryId) {
+        System.out.println("check");
+        Page<Blog> blogs = this.blogService.findBlogByCategory(categoryId, pageable);
+        if(blogs.hasContent()) {
+            System.out.println(blogs);
+            return new ResponseEntity<>(blogs, HttpStatus.OK);
+        }else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
     @PostMapping("create")
     public ResponseEntity<?> createBlog(@Valid @RequestBody Blog blog, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            return new ResponseEntity<>(HttpStatus.PRECONDITION_FAILED);
+            Map<String, String> errors = new HashMap<>();
+            bindingResult.getAllErrors().forEach(error -> {
+                String fieldName = ((FieldError) error).getField();
+                String errorMessage = error.getDefaultMessage();
+                errors.put(fieldName, errorMessage);
+            });
+            return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
         } else {
             blogService.save(blog);
             return new ResponseEntity<>(HttpStatus.CREATED);
@@ -57,7 +78,7 @@ public class BlogController {
         Optional<Blog> blog = blogService.findById(id);
         if (blog.isPresent()) {
             if (bindingResult.hasErrors()) {
-                return new ResponseEntity<>(HttpStatus.PRECONDITION_FAILED);
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
             } else {
                 blogService.save(updateBlog);
                 return new ResponseEntity<>(HttpStatus.OK);

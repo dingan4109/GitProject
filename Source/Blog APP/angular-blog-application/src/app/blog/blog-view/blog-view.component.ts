@@ -5,6 +5,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {NotifierService} from "angular-notifier";
 import {AngularFireStorage} from "@angular/fire/storage";
 import {AuthService} from "../../service/auth.service";
+import {TokenService} from "../../service/token.service";
 
 @Component({
   selector: 'app-blog-view',
@@ -17,9 +18,13 @@ export class BlogViewComponent implements OnInit {
   notifier: NotifierService;
   roles: string[];
 
-  constructor(private blogService: BlogService, private activatedRoute: ActivatedRoute, private router: Router, private notifierService: NotifierService, private storage: AngularFireStorage, private authService: AuthService) {
+  constructor(private blogService: BlogService, private activatedRoute: ActivatedRoute, private router: Router, private notifierService: NotifierService, private storage: AngularFireStorage, private authService: AuthService, private tokenService: TokenService) {
     this.notifier = notifierService;
-    this.roles = this.authService.roles;
+    if(this.tokenService.getAccount()) {
+      this.roles = this.tokenService.getAccount().roles;
+    }else {
+      this.roles = null;
+    }
   }
 
   ngOnInit(): void {
@@ -40,13 +45,13 @@ export class BlogViewComponent implements OnInit {
       () => {},
       () => {
         this.router.navigateByUrl('/blog-list');
-        this.notifier.notify('default','Blog is successfully deleted!')
+        this.notifier.notify('default','Blog is successfully deleted!');
       }
       )
   }
 
   like() {
-    if(this.authService.roles !== null) {
+    if(this.roles !== null) {
       this.blog.likeNumber++;
       this.blogService.increaseLike(this.id, this.blog).subscribe(
         () => {},

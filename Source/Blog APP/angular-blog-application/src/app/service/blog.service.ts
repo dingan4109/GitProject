@@ -8,7 +8,6 @@ import {HttpClient} from "@angular/common/http";
 })
 export class BlogService {
   API_BLOG = 'http://localhost:8080/blogs';
-  categoryId = 1;
 
   constructor(private http: HttpClient) {
   }
@@ -30,8 +29,8 @@ export class BlogService {
   deleteBlog(id: number): Observable<void> {
     return this.http.delete<void>(`${this.API_BLOG}/delete/${id}`)
   }
-  getBlogsByCategory(): Observable<Blog[]> {
-    return this.http.get<Blog[]>(`${this.API_BLOG}?category.id_like=${this.categoryId}`)
+  findBlogsByCategory(categoryId: number, currentPage, itemsPerPage): Observable<Response> {
+    return this.http.get<Response>(`${this.API_BLOG}/findBlogByCategory/${categoryId}?page=${currentPage}&size=${itemsPerPage}`)
   }
   increaseLike(id, blog): Observable<void> {
     return this.http.patch<void>(`${this.API_BLOG}/like/${id}`,blog);

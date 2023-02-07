@@ -21,6 +21,7 @@ export class AuthInterceptor implements HttpInterceptor{
       setHeaders: {
         'Authorization': `Bearer ${this.interceptorToken}`,
       },
+      // withCredentials: true
     });
     return next.handle(req1);
   }

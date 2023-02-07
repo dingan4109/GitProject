@@ -12,7 +12,7 @@ import {CommentModule} from "../comment/comment.module";
 import {ErrorModule} from "../error/error.module";
 import {AdminCheck} from "../security/admin-check";
 import {LoginCheck} from "../security/login-check";
-import {SecurityModule} from "../security/security.module";
+import {AuthInterceptor} from "../security/interceptors/auth-interceptor";
 
 
 @NgModule({
@@ -26,6 +26,6 @@ import {SecurityModule} from "../security/security.module";
     CommentModule,
     ErrorModule
   ],
-  providers: [AdminCheck, LoginCheck]
+  providers: [AdminCheck, LoginCheck, AuthInterceptor]
 })
 export class BlogModule { }
